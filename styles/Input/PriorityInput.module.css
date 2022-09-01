@@ -1,0 +1,14 @@
+.priority::-webkit-slider-runnable-track {
+  background: #000;
+  border-radius: 999px;
+  padding: 10px;
+  color: transparent;
+  border: none;
+}
+
+.priority::-webkit-slider-thumb {
+  background: red !important;
+}
+
+
+

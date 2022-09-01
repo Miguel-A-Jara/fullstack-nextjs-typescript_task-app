@@ -1,0 +1,14 @@
+.circle {
+  border-top:     10px solid #000;
+  border-bottom:  10px solid #000;
+  border-right:   10px solid #2290bb;
+  border-left:    10px solid #2290bb;
+  border-radius: 50%;
+
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  from  { transform: rotate(0); }
+  to    { transform: rotate(360deg); }
+}
