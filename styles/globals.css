@@ -9,40 +9,20 @@
   color: limegreen;
 }
 
-.bg-one {
-  background: limegreen;
-}
-
 .two {
   color: lightgreen;
-}
-
-.bg-two {
-  background: lightgreen;
 }
 
 .three {
   color: cornflowerblue;
 }
 
-.bg-three {
-  background: cornflowerblue;
-}
-
 .four {
   color: crimson;
 }
 
-.bg-four {
-  background: crimson;
-}
-
 .five {
   color: red;
-}
-
-.bg-five {
-  background: red;
 }
 
 /* ========== Media Queries ==========  */
@@ -53,7 +33,9 @@
 
   body {
     color: white;
-    background: var(--background);
+    background: #1c2483;
+    min-height: 100vh;
+    position: relative;
   }
 }
 

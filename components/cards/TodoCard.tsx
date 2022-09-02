@@ -18,7 +18,7 @@ const TodoCard = ({ cardsInfo }: ITodoCardProps) => {
 
   return (
     <>
-     <div className={`${ styles.card } bg-${ color(cardsInfo.priority) } col-4 card my-4 position-relative pb-5`}>
+     <div className={`${ styles.card } col-4 card my-4 position-relative pb-5`}>
       <div className='card-body'>
         <Link href={`/todo/${cardsInfo._id}`} >
           <a className={styles['card-link']}>
