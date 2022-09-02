@@ -37,38 +37,62 @@ const TodoPage: NextPageWithLayout = () => {
   }, [fetchedTodo, todoState]);
 
   return (
-    <>
+    <div className='row'>
     {
       todoState && (
         <>
-          <EditableInput 
-            name='author' 
-            style='display-2'
-            text={todoState.author} 
-            setTodoState={setTodoState} 
-          />
-          <EditableInput 
-            name='title' 
-            setTodoState={setTodoState} 
-            text={todoState.title} 
-          />
-          <EditableInput 
-            name='description' 
-            setTodoState={setTodoState} 
-            text={todoState.description} 
-          />
-          <PriorityInput
-            name='priority'
-            setTodoState={setTodoState} 
-            value={todoState.priority} 
-          />
-          <TodoCardCompletedToggle id={todoState._id} isCompleted={todoState.completed} />
+          <div className='col-12 col-lg-6'>
+            <EditableInput 
+              name='author' 
+              style='display-2'
+              text={todoState.author} 
+              setTodoState={setTodoState} 
+            />
+          </div>
+          <div className='col-12 d-lg-none'>
+            <EditableInput 
+              name='title' 
+              setTodoState={setTodoState} 
+              text={todoState.title} 
+            />
+          </div>
+          <div className='col-12 col-lg-6'>
+            <EditableInput 
+              name='description' 
+              setTodoState={setTodoState} 
+              text={todoState.description} 
+            />
+          </div>
+          <div className='d-none d-lg-block col-lg-6'>
+            <EditableInput 
+              name='title' 
+              setTodoState={setTodoState} 
+              text={todoState.title} 
+            />
+          </div>
+          <div className='row m-0 p-0'>
+            <div className='col-12 col-lg-11 my-5'>
+              <PriorityInput
+                name='priority'
+                completed={todoState.completed}
+                setTodoState={setTodoState} 
+                value={todoState.priority} 
+              />
+            </div>
+            <div className='col-12 col-lg-1 my-5 d-flex justify-content-center justify-content-lg-end align-items-center'>
+              <TodoCardCompletedToggle 
+                id={todoState._id}
+                setTodoState={setTodoState}
+                isCompleted={todoState.completed} 
+              />
+            </div>
+          </div>
 
           <button className={`btn btn-primary`} disabled={ !isTodoChanged }>Send Me</button>
         </>
       )
     }
-    </>
+    </div>
   )
 }
 

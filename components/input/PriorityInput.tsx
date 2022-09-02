@@ -1,36 +1,44 @@
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
-
-import styles from '../../styles/Input/PriorityInput.module.css';
+import { Dispatch, SetStateAction, useState } from 'react';
+import styles      from '../../styles/Input/PriorityInput.module.css';
+import ReactSlider from 'react-slider';
 
 import { ITodo } from '../../interfaces/Todos/ITodo';
+import PriorityInputThumb from './PriorityInputThumb';
 
 interface IPriorityInputProps {
-  name: keyof ITodo;
+  name:         keyof ITodo;
+  value:        number;
+  completed:    boolean;
   setTodoState: Dispatch<SetStateAction<ITodo | null>>;
-  value: number;
 }
 
-const PriorityInput = ({ name, setTodoState, value }: IPriorityInputProps) => {
+const PriorityInput = ({ name, setTodoState, value, completed }: IPriorityInputProps) => {
 
-  const [inputState, setInputState] = useState(value);
+  const [priorityState, setPriorityState] = useState(value);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputState(+e.target.value); //We convert it to a number
-    setTodoState((prev) => ({...prev as ITodo, [name]: +e.target.value}));
+  const handleChange = (e: number) => {
+    setPriorityState(e);
+    setTodoState((prev) => ({...prev as ITodo, [name]: e + 1}))
   };
 
   return (
-    <div>
-      <input 
-        min={1}
-        max={5}
-        name={name} 
-        type='range' 
-        value={inputState} 
-        onChange={(e) => handleChange(e)}
-        className={`${styles.priority}`}
+    <div className={`${ completed && styles.completed }`}>
+      <h4 className='mb-5 text-center text-lg-start'>Priority: { priorityState + 1 }</h4>
+      <ReactSlider
+        min={0}
+        max={4}
+        value={value - 1}
+        className={styles['priority-track']}
+        thumbClassName={styles['priority-thumb']}
+        onChange={handleChange}
+        renderThumb={(props, state) => (
+          <div {...props}
+          >
+            <PriorityInputThumb value={(state.value + 1)} />
+          </div>
+        )}
       />
-    </div>
+    </div> 
   )
 }
 
