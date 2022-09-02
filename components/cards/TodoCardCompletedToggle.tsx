@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../utils/hooks/reduxHooks';
 interface ITodoCardCompletedToggle {
   id: string;
   isCompleted: boolean;
-  setTodoState: Dispatch<SetStateAction<ITodo | null>>;
+  setTodoState?: Dispatch<SetStateAction<ITodo | null>>;
 }
 
 const TodoCardCompletedToggle = ({ isCompleted, setTodoState, id }: ITodoCardCompletedToggle) => {
@@ -22,7 +22,8 @@ const TodoCardCompletedToggle = ({ isCompleted, setTodoState, id }: ITodoCardCom
     updateTodo(id, { completed: !isCompleted })
       .then((data: ITodo) => {
         dispatch(updateTodoRedux({ _id: id, paramName: 'completed', paramValue: data.completed }));
-        setTodoState((prev) => ({...prev as ITodo, completed: data.completed}));
+        if ( setTodoState ) 
+          setTodoState((prev) => ({...prev as ITodo, completed: data.completed}));
       });
   };
 
