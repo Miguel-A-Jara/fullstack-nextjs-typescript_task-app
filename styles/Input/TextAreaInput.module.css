@@ -4,13 +4,15 @@
   background: transparent;
 
   outline: none;
+  border-radius: 0.25em;
 
   transition: all 100ms ease-in;
 }
 
 .text-area:focus {
-  background: #000;
-  border-radius: 0.125em;
+  background: white;
+  color: #000;
+  border-bottom: 1px solid white;
   border: none;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 1);
 }

@@ -37,37 +37,38 @@ const TodoPage: NextPageWithLayout = () => {
   }, [fetchedTodo, todoState]);
 
   return (
-    <div className='row'>
+    <div className='row mt-3'>
     {
       todoState && (
         <>
           <div className='col-12 col-lg-6'>
             <EditableInput 
               name='author' 
-              style='display-2'
+              style='display-3 fw-bold'
               text={todoState.author} 
               setTodoState={setTodoState} 
             />
           </div>
           <div className='col-12 d-lg-none'>
             <EditableInput 
-              name='title' 
-              setTodoState={setTodoState} 
+              name='title'
               text={todoState.title} 
+              setTodoState={setTodoState} 
+              style='fw-light fs-4 fst-italic'
             />
           </div>
           <div className='col-12 col-lg-6'>
             <EditableInput 
-              name='description' 
+              name='description'
               setTodoState={setTodoState} 
               text={todoState.description} 
             />
           </div>
           <div className='d-none d-lg-block col-lg-6'>
             <EditableInput 
-              name='title' 
-              setTodoState={setTodoState} 
+              name='title'
               text={todoState.title} 
+              setTodoState={setTodoState} 
             />
           </div>
           <div className='row m-0 p-0'>

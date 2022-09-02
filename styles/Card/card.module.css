@@ -13,10 +13,6 @@
   color: white;
 }
 
-.card-toggle-container {
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-
 .card-toggle {
   border-radius: 50%; 
   position: absolute; 
@@ -25,6 +21,10 @@
   align-items: center;
 
   transition: all cubic-bezier(0.2, 0.9, 0.9, 1) 300ms;
+}
+
+.card-toggle:hover {
+  cursor: pointer;
 }
 
 .card-completed {
@@ -47,7 +47,7 @@
   border-radius: 50%;
   cursor: pointer;
 
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 1);
   transition: all 0.3s ease;
 }
 

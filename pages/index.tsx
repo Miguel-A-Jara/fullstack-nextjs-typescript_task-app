@@ -27,7 +27,6 @@ const Home: NextPageWithLayout = () => {
         <title>Next JS - TodoAPP</title>
       </Head>
       <section>
-        <h1 className='display-2 text-center fw-bold'>Todo App!</h1>
         <div className='row justify-content-around'>
 
         { isLoading && <LoadingScreen /> }

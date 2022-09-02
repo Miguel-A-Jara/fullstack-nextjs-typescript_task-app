@@ -4,11 +4,53 @@
   --background: #111;
 }
 
+/* ========== Colors ==========  */
+.one {
+  color: limegreen;
+}
+
+.bg-one {
+  background: limegreen;
+}
+
+.two {
+  color: lightgreen;
+}
+
+.bg-two {
+  background: lightgreen;
+}
+
+.three {
+  color: cornflowerblue;
+}
+
+.bg-three {
+  background: cornflowerblue;
+}
+
+.four {
+  color: crimson;
+}
+
+.bg-four {
+  background: crimson;
+}
+
+.five {
+  color: red;
+}
+
+.bg-five {
+  background: red;
+}
+
 /* ========== Media Queries ==========  */
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
+
   body {
     color: white;
     background: var(--background);

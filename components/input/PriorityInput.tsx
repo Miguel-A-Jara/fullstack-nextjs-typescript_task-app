@@ -14,7 +14,7 @@ interface IPriorityInputProps {
 
 const PriorityInput = ({ name, setTodoState, value, completed }: IPriorityInputProps) => {
 
-  const [priorityState, setPriorityState] = useState(value);
+  const [priorityState, setPriorityState] = useState(value - 1);
 
   const handleChange = (e: number) => {
     setPriorityState(e);

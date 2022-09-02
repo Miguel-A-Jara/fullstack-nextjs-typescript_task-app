@@ -5,15 +5,20 @@ import { ITodo } from '../../interfaces/Todos/ITodo';
 
 import TodoCardDeleteButton    from './TodoCardDeleteButton';
 import TodoCardCompletedToggle from './TodoCardCompletedToggle';
+import getColorBasedOnPriority from '../../utils/getColorBasedOnPriority';
+
 
 interface ITodoCardProps {
   cardsInfo: ITodo;
 }
 
 const TodoCard = ({ cardsInfo }: ITodoCardProps) => {
+
+  const color = getColorBasedOnPriority;
+
   return (
     <>
-     <div className={`${ styles.card } col-4 card bg-primary my-4 position-relative pb-5`}>
+     <div className={`${ styles.card } bg-${ color(cardsInfo.priority) } col-4 card my-4 position-relative pb-5`}>
       <div className='card-body'>
         <Link href={`/todo/${cardsInfo._id}`} >
           <a className={styles['card-link']}>

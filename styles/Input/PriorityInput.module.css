@@ -26,6 +26,7 @@
 
 .priority-thumb {
   background: #000;
+  border: 3px solid white;
   font-size: 2.5em;
   width: 60px;
   height: 60px;
@@ -40,24 +41,4 @@
 
 .thumb-icon {
   transition: all 300ms ease-in;
-}
-
-.one {
-  color: limegreen;
-}
-
-.two {
-  color: lightgreen;
-}
-
-.three {
-  color: cornflowerblue;
-}
-
-.four {
-  color: crimson;
-}
-
-.five {
-  color: red;
 }
