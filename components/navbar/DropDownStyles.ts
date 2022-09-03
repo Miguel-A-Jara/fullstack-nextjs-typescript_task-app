@@ -33,7 +33,13 @@ const DropDownStyles: StylesConfig = {
     ...provided,
     overflow: 'hidden',
     border: 'none',
+    backgroundColor: 'inherit',
     borderRadius: '0 0 10px 10px',
+  }),
+  noOptionsMessage: (provided, state) => ({
+    ...provided,
+    backgroundColor: '#11111a',
+    color: '#00C895',
   }),
   menuList: (provided, state) => ({
     ...provided,
@@ -49,10 +55,15 @@ const DropDownStyles: StylesConfig = {
     color: 'inherit',
     ":hover": { color: 'inherit' },
   }),
+  clearIndicator: (provided, state) => ({
+    display: 'flex',
+    color: 'inherit',
+    justifyContent: 'center',
+    ":hover": { cursor: 'pointer' },
+  }),
   placeholder: (provided, state) => ({
     ...provided,
     color: 'inherit',
-    fontWeight: 'bold',
   }),
 }
 

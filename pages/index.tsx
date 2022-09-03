@@ -17,7 +17,8 @@ const Home: NextPageWithLayout = () => {
 
   useEffect(() => {
 
-    dispatch( getTodosThunk() );
+    if ( todos.length < 1 )
+      dispatch( getTodosThunk() );
     
   }, [dispatch]);
 

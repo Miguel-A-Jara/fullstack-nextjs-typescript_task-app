@@ -10,12 +10,15 @@ import todoFormSchema    from './todoFormSchema';
 import FormTextInput     from './FormTextInput';
 import FormNumberInput   from './FormNumberInput';
 import FormSubmitButton  from './FormSubmitButton';
+import { useAppDispatch } from '../../utils/hooks/reduxHooks';
+import { addTodo } from '../../redux/slices/todoSlice';
 
 const schema = todoFormSchema();
 
 const Form = () => {
 
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const { register, handleSubmit, formState: { errors, isValid }, setError } = useForm<IFormFields>({
     resolver: yupResolver(schema),
@@ -23,16 +26,22 @@ const Form = () => {
   });
 
   const submitForm = (data: IFormFields) => {
-    try {
 
+    try {
       todoFormSendData(data)
-        .then(data => {
-          if (data._id) { //If we received an ID then it means the TODO was created
-            router.push(`/todo/${data._id}`)
+        .then(resp => {
+          if (resp._id) { //If we received an ID then it means the TODO was created
+            
+            const todo = resp;
+            delete todo.__v; // We remove the MONGO id (__v) from the response
+            
+            dispatch(addTodo(todo));
+            router.push(`/todo/${resp._id}`)
+
           }
 
-          if (data.statusCode === 400) {
-            setError('title', { type: 'custom', message: data.message })
+          if (resp.statusCode === 400) {
+            setError('title', { type: 'custom', message: resp.message })
           }
         })
 

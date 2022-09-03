@@ -4,7 +4,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const fullURL = `${BASE_URL}todos/`;
 
 const todoFormSendData = async (data: IFormFields) => {
-  
+
   const resp = await fetch(fullURL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

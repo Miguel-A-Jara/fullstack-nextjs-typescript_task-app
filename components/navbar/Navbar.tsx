@@ -30,13 +30,22 @@ const Navbar = ({ refHeight }: INavbarProps) => {
                 <NavLink href='/add-todo' text='Add Task' />
               </li>
               <li className='nav-item'>
-                <DropDownFilter />
+                <DropDownFilter 
+                  fieldToFilter='author' 
+                  placeholderText='Authors...' 
+                />
               </li>
               <li className='nav-item'>
-                <DropDownFilter />
+                <DropDownFilter
+                  fieldToFilter='completed'
+                  placeholderText='Completed...'
+                />
               </li>
               <li className='nav-item'>
-                <DropDownFilter />
+                <DropDownFilter
+                  fieldToFilter='priority'
+                  placeholderText='Priority...'
+                />
               </li>
             </ul>
           </div>
