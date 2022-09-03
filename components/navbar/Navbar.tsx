@@ -15,17 +15,25 @@ const Navbar = ({ refHeight }: INavbarProps) => {
       ref={refHeight} 
       className={styles.navbar}
     >
-      <nav className='navbar navbar-dark bg-secondary navbar-expand-lg'>
+      <nav className='navbar navbar-dark navbar-expand-lg app-shadow'>
         <div className='container-fluid'>
 
-          <NavLink href='/' text='Todo' />
+            <i className='d-none d-lg-inline bi bi-house-fill fs-4'/>
+            <NavLink href='/' text='Todos' />
 
           <NavbarToggleButton />
           
           <div className='collapse navbar-collapse' id='navbarNav'>
-            <ul className='navbar-nav align-items-center'>
-              <li className='nav-item'>
+            <ul className='navbar-nav w-100 justify-content-around align-items-center'>
+              <li className='nav-item d-flex align-items-center justify-content-around gap-1'>
+                <i className='bi bi-plus-circle-fill fs-4' />
                 <NavLink href='/add-todo' text='Add Todo' />
+              </li>
+              <li className='nav-item'>
+                <DropDownFilter />
+              </li>
+              <li className='nav-item'>
+                <DropDownFilter />
               </li>
               <li className='nav-item'>
                 <DropDownFilter />

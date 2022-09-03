@@ -1,6 +1,7 @@
 .card {
   width: 18rem;
-  background: white;
+  background: #191933;
+  border: none;
 }
 
 .card-link {
@@ -28,17 +29,17 @@
 }
 
 .card-completed {
-  background: #39c554;
+  background: #545cff;
   left: calc(100% - 30px);
 }
 
 .card-not-completed {
-  background: #ef6466;
+  background: #00C895;
   left: -10px;
 }
 
 .card-delete-button {
-  background: #ef6466;
+  background: #545cff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,13 +47,10 @@
   height: 40px;
   border-radius: 50%;
   cursor: pointer;
-
-  box-shadow: 0 0 2px rgba(0, 0, 0, 1);
   transition: all 0.3s ease;
 }
 
 .card-delete-button:hover {
-  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.7);
-  background: hsl(0, 100%, 55%);
+  background: #00C895;
   border-radius: 35%;
 }

@@ -16,7 +16,7 @@ const TodoCardDeleteButton = ({ id }: ITodoCardDeleteButtonProps) => {
   };
 
   return (
-    <div onClick={handleDelete} className={style['card-delete-button']}>
+    <div onClick={handleDelete} className={`${style['card-delete-button']} app-shadow-close`}>
       <i className='bi bi-trash-fill fs-3'></i>
     </div>
   )

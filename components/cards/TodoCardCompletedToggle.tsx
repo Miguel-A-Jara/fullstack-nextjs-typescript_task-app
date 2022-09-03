@@ -29,7 +29,7 @@ const TodoCardCompletedToggle = ({ isCompleted, setTodoState, id }: ITodoCardCom
 
   return (
     <div
-      className={`${card['card-toggle-container']} bg-white rounded-pill position-relative`}
+      className={`${card['card-toggle-container']} bg-white rounded-pill position-relative app-shadow-close`}
       style={{ width: 60, height: 20 }}
       onClick={toggleTodo}
     >
@@ -38,7 +38,7 @@ const TodoCardCompletedToggle = ({ isCompleted, setTodoState, id }: ITodoCardCom
         style={{ width: 35, height: 35, top: -7.5 }}
       >
         <i 
-          style={{width: 20, height: 20}} 
+          style={{width: 30, height: 30}} 
           className={`d-flex align-items-center justify-content-center fs-4 bi 
             ${ isCompleted ? 'bi-emoji-sunglasses-fill' : 'bi-umbrella-fill' }
           `}

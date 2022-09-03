@@ -18,11 +18,11 @@ const TodoCard = ({ cardsInfo }: ITodoCardProps) => {
 
   return (
     <>
-     <div className={`${ styles.card } col-4 card my-4 position-relative pb-5`}>
+     <div className={`${ styles.card } col-4 card my-4 position-relative pb-5 app-shadow`}>
       <div className='card-body'>
         <Link href={`/todo/${cardsInfo._id}`} >
           <a className={styles['card-link']}>
-            <h3 className='card-title text-center fw-bold'>{ cardsInfo.title }</h3>
+            <h2 className='h1 card-title text-center fw-bold'>{ cardsInfo.title }</h2>
           </a>
         </Link>
         <h4 className='fw-light fst-italic card-subtitle mb-2'>
