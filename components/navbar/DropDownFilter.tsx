@@ -1,5 +1,8 @@
 import { ChangeEvent, useEffect, useState } from 'react';
+import Select from 'react-select';
+
 import { filterTodos } from '../../redux/slices/todoSlice';
+import DropDownStyles  from './DropDownStyles';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/reduxHooks';
 
 const DropDownFilter = () => {
@@ -22,9 +25,11 @@ const DropDownFilter = () => {
     dispatch(filterTodos(e.target.value));
   };
 
+  const options = authors.map(a => ({ value: a, label: a }));
+
   return (
     <>
-      <select className='form-select fw-bold fs-4' onChange={(e) => handleFilterChange(e)}>
+      {/* <select className='form-select fw-bold fs-4' onChange={(e) => handleFilterChange(e)}>
         <option value='All'>All</option>
         {
           authors.map(author => (
@@ -36,7 +41,13 @@ const DropDownFilter = () => {
             </option>
           ))
         }
-      </select> 
+      </select> */}
+      <Select 
+        isClearable
+        options={options} 
+        styles={DropDownStyles}
+        placeholder='Filter by Author'
+      />
     </>
   )
 }

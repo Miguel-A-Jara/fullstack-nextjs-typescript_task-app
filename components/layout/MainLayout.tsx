@@ -16,8 +16,9 @@ const MainLayout = ({ children }: IMainLayoutProps) => {
   return (
     <Provider store={store}>
       <Navbar refHeight={target} />
-      <main 
-        className='container container-xl' 
+      <div className='blur' />
+      <main
+        className='container container-xl'
         style={{ paddingTop: size?.height }}
       >
         { children }

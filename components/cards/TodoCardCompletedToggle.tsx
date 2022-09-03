@@ -34,7 +34,7 @@ const TodoCardCompletedToggle = ({ isCompleted, setTodoState, id }: ITodoCardCom
       onClick={toggleTodo}
     >
       <div 
-        className={`${isCompleted ? card['card-completed'] : card['card-not-completed']} ${ card['card-toggle'] }`} 
+        className={`app-shadow-close ${isCompleted ? card['card-completed'] : card['card-not-completed']} ${ card['card-toggle'] }`} 
         style={{ width: 35, height: 35, top: -7.5 }}
       >
         <i 

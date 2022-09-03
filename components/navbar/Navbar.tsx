@@ -19,7 +19,7 @@ const Navbar = ({ refHeight }: INavbarProps) => {
         <div className='container-fluid'>
 
             <i className='d-none d-lg-inline bi bi-house-fill fs-4'/>
-            <NavLink href='/' text='Todos' />
+            <NavLink href='/' text='Tasks' />
 
           <NavbarToggleButton />
           
@@ -27,7 +27,7 @@ const Navbar = ({ refHeight }: INavbarProps) => {
             <ul className='navbar-nav w-100 justify-content-around align-items-center'>
               <li className='nav-item d-flex align-items-center justify-content-around gap-1'>
                 <i className='bi bi-plus-circle-fill fs-4' />
-                <NavLink href='/add-todo' text='Add Todo' />
+                <NavLink href='/add-todo' text='Add Task' />
               </li>
               <li className='nav-item'>
                 <DropDownFilter />
