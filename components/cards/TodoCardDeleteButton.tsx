@@ -1,3 +1,5 @@
+import ReactTooltip from 'react-tooltip';
+
 import { useAppDispatch } from '../../utils/hooks/reduxHooks';
 import { deleteTodo as deleteTodoRedux } from '../../redux/slices/todoSlice';
 
@@ -16,9 +18,24 @@ const TodoCardDeleteButton = ({ id }: ITodoCardDeleteButtonProps) => {
   };
 
   return (
-    <div onClick={handleDelete} className={`${style['card-delete-button']} app-shadow-close`}>
-      <i className='bi bi-trash-fill fs-3'></i>
-    </div>
+    <>
+      <div 
+        onClick={handleDelete}
+        data-tip='fdfjdj'
+        className={`${style['card-delete-button']} app-shadow-close`}
+      >
+        <i className='bi bi-trash-fill fs-3'></i>
+      </div>
+      <ReactTooltip 
+        border
+        backgroundColor='#11111a'
+      >
+        <div className='d-flex align-items-center justify-content-center text-secondary'>
+          <i className='bi bi-x-circle-fill me-1 fs-5' />
+          <small className='fs-6'>Delete Task</small>
+        </div>
+      </ReactTooltip>
+    </>
   )
 }
 
