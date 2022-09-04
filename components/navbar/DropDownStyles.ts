@@ -53,7 +53,7 @@ const DropDownStyles: StylesConfig = {
   dropdownIndicator: (provided, state) => ({
     ...provided,
     color: 'inherit',
-    ":hover": { color: 'inherit' },
+    ":hover": { color: 'inherit', cursor: 'pointer' },
   }),
   clearIndicator: (provided, state) => ({
     display: 'flex',

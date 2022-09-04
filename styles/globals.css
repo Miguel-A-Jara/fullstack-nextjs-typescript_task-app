@@ -42,6 +42,7 @@
   background-color: rgba(0, 0, 0, 0.5);
   filter: blur(10px);
   inset: 0;
+  z-index: -1;
 }
 
 /* ========== Media Queries ==========  */
@@ -52,7 +53,7 @@
 
   body {
     color: white;
-    background: linear-gradient(135deg, #99c1ff, #8d64ff);
+    background: linear-gradient(135deg, #99c1ff, #8d64ff, #545cff);
     min-height: 100vh;
     position: relative;
   }

@@ -4,3 +4,13 @@
   z-index: 5;
   background: #11111a;
 }
+
+.button {
+  transition: all 0.3s ease;
+}
+
+.button:hover, .button:focus {
+  background-color: #11111a;
+  outline: 1px solid #00C895 !important;
+  box-shadow: none;
+}

@@ -4,6 +4,21 @@
   border: none;
 }
 
+.card-bg-completed {
+  width: 18rem;
+  border: none;
+  background: #11111a;
+}
+
+.card-title-completed {
+  color: #191933;
+  text-decoration: line-through;
+}
+
+.card-title-completed:hover {
+  color: #191933;
+}
+
 .card-link {
   color: white;
   text-decoration: none;

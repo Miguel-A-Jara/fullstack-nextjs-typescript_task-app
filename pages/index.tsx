@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useEffect } from 'react';
 import Head from 'next/head'
 
 import { NextPageWithLayout } from './_app';
@@ -7,7 +7,6 @@ import MainLayout             from '../components/layout/MainLayout';
 
 import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
 import getTodosThunk from '../redux/slices/getTodosThunk';
-import { ITodo }     from '../interfaces/Todos/ITodo';
 import LoadingScreen from '../components/loading/LoadingScreen';
 import EmptyCardList from '../components/cards/EmptyCardList';
 

@@ -1,14 +1,24 @@
-import styles from '../../styles/navbar.module.css';
+import { MouseEvent } from 'react';
+import styles         from '../../styles/navbar.module.css';
 
-import DropDownFilter from './DropDownFilter'
+import NavLink            from './NavLink'
+import DropDownFilter     from './DropDownFilter'
 import NavbarToggleButton from './NavbarToggleButton';
-import NavLink from './NavLink'
+import { useAppDispatch } from '../../utils/hooks/reduxHooks';
+import { filterTodos, updateFilterParams } from '../../redux/slices/todoSlice';
 
 interface INavbarProps {
   refHeight: any;
 }
 
 const Navbar = ({ refHeight }: INavbarProps) => {
+
+  const dispatch = useAppDispatch();
+
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    dispatch(updateFilterParams(null));
+    dispatch(filterTodos());
+  };
 
   return (
     <div 
@@ -46,6 +56,15 @@ const Navbar = ({ refHeight }: INavbarProps) => {
                   fieldToFilter='priority'
                   placeholderText='Priority...'
                 />
+              </li>
+              <li className='nav-item'>
+                <button 
+                  onClick={handleClick}
+                  className={`btn btn-primary text-secondary fw-bold d-flex align-items-center ${styles.button}`}
+                >
+                <i className='bi bi-x-circle-fill me-2 fs-5'/>
+                  Clear all filters
+                </button>
               </li>
             </ul>
           </div>

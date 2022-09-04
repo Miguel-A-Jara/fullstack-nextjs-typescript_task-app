@@ -107,11 +107,18 @@ const todoSlice = createSlice({
       state.todos = filteredTodos as WritableDraft<ITodo>[];
 
     },
-    updateFilterParams: (state, action: PayloadAction<FilterParamsType>) => {
+    updateFilterParams: (state, action: PayloadAction<FilterParamsType | null>) => {
+
+      if ( !action.payload ) { //If we havent received a payload, then we clean the filters
+        state.filterParams = state.filterParams.map(p => ({ ...p, value: 'All' }));
+        return;
+      }
+
+      const assertedAction = action as PayloadAction<FilterParamsType>;
 
       state.filterParams = state.filterParams.map(p => (
-        p.param === action.payload.param
-          ? { ...p, value: action.payload.value }
+        p.param === assertedAction.payload.param
+          ? { ...p, value: assertedAction.payload.value }
           : ( p )
       ))
     },

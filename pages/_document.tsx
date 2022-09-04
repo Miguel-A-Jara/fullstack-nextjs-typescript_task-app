@@ -16,6 +16,7 @@ const _document = () => {
 
       </Head>
       <body>
+        <div className='blur'/>
         <Main />
         <NextScript />
       </body>

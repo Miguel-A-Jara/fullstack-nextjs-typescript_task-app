@@ -16,12 +16,13 @@ interface IDropDownFilterProps {
 const DropDownFilter = ({ fieldToFilter, placeholderText }: IDropDownFilterProps) => {
 
   const dispatch = useAppDispatch();
-  const { todosCopy } = useAppSelector((state) => state.todos);
+  const { todosCopy, filterParams } = useAppSelector((state) => state.todos);
   
   const valuesArray = todosCopy.map((todo) => todo[fieldToFilter]); //We make an array of values
   const uniqueValues = valuesArray.filter((x, i, t) => t.indexOf(x) == i) //We get the unique values
   
   const [values, setValues] = useState<string[] | boolean[]| number[]>([]);
+  const [dropDownState, setDropDownState] = useState<DropDownValues | null>(null);
 
   useEffect(() => {
 
@@ -35,8 +36,16 @@ const DropDownFilter = ({ fieldToFilter, placeholderText }: IDropDownFilterProps
 
   }, [todosCopy]);
 
+  useEffect(() => {
+    filterParams.map(p => {
+      if ( p.param === fieldToFilter && p.value === 'All' ) {
+        setDropDownState(null);
+      }
+    })
+  }, [filterParams]);
+
   const handleFilterChange = (e: DropDownValues | unknown) => {
-    
+
     if ( !e ) { //If e does not exist, then nothing is selected, so we send "All"
       dispatch(updateFilterParams({ param: fieldToFilter, value: 'All' }));
       dispatch(filterTodos());
@@ -46,7 +55,8 @@ const DropDownFilter = ({ fieldToFilter, placeholderText }: IDropDownFilterProps
     const value: DropDownValues = e as DropDownValues; //Casting
     dispatch(updateFilterParams({ param: fieldToFilter, value: value.value }));
     dispatch(filterTodos());
-
+    
+    setDropDownState(value);
   };
 
   const options = values.map(a => {
@@ -68,11 +78,12 @@ const DropDownFilter = ({ fieldToFilter, placeholderText }: IDropDownFilterProps
   return (
     <>
       <Select 
-        options={options} 
-        isClearable={true}
+        options={ options } 
+        isClearable={ true }
+        value={ dropDownState }
+        styles={ DropDownStyles }
         instanceId={ placeholderText }
-        styles={DropDownStyles}
-        onChange={handleFilterChange}
+        onChange={ handleFilterChange }
         placeholder={ placeholderText }
         noOptionsMessage={() => (
           <div className='d-flex justify-content-start gap-2'><i className='bi bi-search'/> Not Found...</div>
