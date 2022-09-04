@@ -5,13 +5,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import IFormFields        from './IFormFields';
 import todoFormSendData   from '../../utils/send-Data/todoFormSendData';
+import styles             from '../../styles/Form/form.module.css';
 
-import todoFormSchema    from './todoFormSchema';
-import FormTextInput     from './FormTextInput';
-import FormNumberInput   from './FormNumberInput';
-import FormSubmitButton  from './FormSubmitButton';
+import todoFormSchema     from './todoFormSchema';
+import FormTextInput      from './FormTextInput';
+import FormNumberInput    from './FormNumberInput';
+import FormSubmitButton   from './FormSubmitButton';
 import { useAppDispatch } from '../../utils/hooks/reduxHooks';
-import { addTodo } from '../../redux/slices/todoSlice';
+import { addTodo }        from '../../redux/slices/todoSlice';
 
 const schema = todoFormSchema();
 
@@ -52,33 +53,38 @@ const Form = () => {
 
   return (
     <form
-      className='bg-secondary row rounded' onSubmit={handleSubmit(submitForm)}>
-        <FormTextInput
-          icon='bi-person-fill'
-          text='Author'
-          register={register('author')}
-          errors={errors.author}
-        />
-        <FormTextInput
-          icon='bi-textarea-t'
-          text='Title'
-          register={register('title')}
-          errors={errors.title}
-        />
-        <FormTextInput
-          icon='bi-file-earmark-text-fill'
-          text='Description'
-          register={register('description')}
-          errors={errors.description}
-        />
-        <FormNumberInput
-          icon='bi-alarm-fill'
-          text='Priority'
-          register={register('priority')}
-          errors={errors.priority}
-        />
+      className={`${ styles.form } p-3 p-lg-5 row rounded-lg justify-content-center justify-content-lg-start align-items-start`} 
+      onSubmit={handleSubmit(submitForm)}
+    >
+      <FormTextInput
+        text='Author'
+        icon='bi-person-fill'
+        errors={errors.author}
+        register={register('author')}
+      />
+      <FormTextInput
+        icon='bi-textarea-t'
+        text='Title'
+        register={register('title')}
+        errors={errors.title}
+      />
+      <FormTextInput
+        icon='bi-file-earmark-text-fill'
+        text='Description'
+        register={register('description')}
+        errors={errors.description}
+      />
+      <FormNumberInput
+        icon='bi-alarm-fill'
+        text='Priority'
+        register={register('priority')}
+        errors={errors.priority}
+      />
 
-      <FormSubmitButton isValid={ isValid } />
+      <div className='col-12 d-flex justify-content-end pe-5'>
+        <FormSubmitButton isValid={ isValid } />
+      </div>
+
     </form>
   )
 }

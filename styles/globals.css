@@ -45,6 +45,24 @@
   z-index: -1;
 }
 
+.tooltip {
+  max-width: 200px;
+  border: #00C895 1px solid !important;
+  border-radius: 1em !important;
+
+  animation: tooltipAnimation 5s ease-in-out infinite;
+}
+
+.tooltip::before {
+  border-top-color: #00C895 !important;
+}
+
+@keyframes tooltipAnimation {
+  0% { translate: 0 0; }
+  50% { translate: 0 5px; }
+  100% { translate: 0 0; }
+}
+
 /* ========== Media Queries ==========  */
 @media (prefers-color-scheme: dark) {
   html {
@@ -62,5 +80,9 @@
 @media screen and (min-width: 992px) {
   .text-lg-start {
     text-align: start;
+  }
+
+  .rounded-lg {
+    border-radius: 0.5em;
   }
 }

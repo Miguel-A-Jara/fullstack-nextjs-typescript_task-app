@@ -1,15 +1,21 @@
-import { ReactElement } from "react"
-import Form from "../../components/form/Form"
-import MainLayout       from "../../components/layout/MainLayout"
+import { ReactElement } from 'react'
+import Head from 'next/head'
 
-import { NextPageWithLayout } from "../_app"
+import Form from '../../components/form/Form'
+import MainLayout       from '../../components/layout/MainLayout'
+
+import { NextPageWithLayout } from '../_app'
 
 const index: NextPageWithLayout = () => {
   return (
-    <div>
-      <h1 className='text-center'>Add Todo</h1>
-      <Form />
-    </div>
+    <>
+    <Head>
+      <title>Task Manager - Add Task</title>
+    </Head>
+      <div className='py-5'>
+        <Form />
+      </div>
+    </>
   )
 }
 

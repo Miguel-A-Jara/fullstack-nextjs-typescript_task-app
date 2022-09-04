@@ -25,7 +25,7 @@ const Home: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>Next JS - TodoAPP</title>
+        <title>Task Manager - Main</title>
       </Head>
       <section>
         <div className='row justify-content-around'>

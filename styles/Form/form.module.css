@@ -1,0 +1,47 @@
+.form {
+  background-color: #11111a;
+}
+
+.label {
+  cursor: pointer;
+  transition: 0.5s ease-in-out all;
+}
+
+.label:active, .label:hover {
+  color: #00C895;
+}
+
+.label:hover + div > .input, .input:hover {
+  border-radius: 0;
+  background: transparent;
+  border: 1px solid transparent;
+  border-bottom: 1px solid #00C895;
+}
+
+.input {
+  color: #00C895;
+  background-color: #191933;
+  border: 1px solid transparent;
+  transition: 0.3s ease-out all;
+  outline: 1px solid transparent;
+}
+
+.input:focus {
+  color: #00C895;
+  box-shadow: none;
+  background-color: #11111a;
+  outline: 1px solid #00C895;
+  border: 1px solid transparent;
+  border-radius: 0.5em !important;
+  border-bottom: 1px solid transparent !important;
+}
+
+.input-error, .input-error:focus {
+  color: #00C895;
+  border-radius: 0;
+  background-color: #191933;
+  box-shadow: none !important;
+  border: 1px solid transparent;
+  border-bottom: 1px solid red;
+  outline: 1px solid transparent !important;
+}

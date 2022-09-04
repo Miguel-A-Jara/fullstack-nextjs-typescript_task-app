@@ -21,17 +21,17 @@ const TodoCardDeleteButton = ({ id }: ITodoCardDeleteButtonProps) => {
     <>
       <div 
         onClick={handleDelete}
-        data-tip='fdfjdj'
+        data-tip='Delete Task'
         className={`${style['card-delete-button']} app-shadow-close`}
       >
         <i className='bi bi-trash-fill fs-3'></i>
       </div>
       <ReactTooltip 
-        border
+        className='tooltip'
         backgroundColor='#11111a'
       >
         <div className='d-flex align-items-center justify-content-center text-secondary'>
-          <i className='bi bi-x-circle-fill me-1 fs-5' />
+          <i className='bi bi-x-circle-fill me-2 fs-5' />
           <small className='fs-6'>Delete Task</small>
         </div>
       </ReactTooltip>
