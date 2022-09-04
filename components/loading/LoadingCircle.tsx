@@ -6,7 +6,7 @@ interface ILoadingCircleProps {
 
 const LoadingCircle = ({ size }: ILoadingCircleProps) => {
   return (
-    <div style={{ width: size, height: size }} className={styles.circle} >
+    <div style={{ width: size, height: size }} className={`${styles.circle}`} >
       
     </div>
   )

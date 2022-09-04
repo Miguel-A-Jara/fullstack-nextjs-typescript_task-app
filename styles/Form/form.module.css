@@ -28,7 +28,6 @@
 
 .input:focus {
   color: #00C895;
-  box-shadow: none;
   background-color: #11111a;
   outline: 1px solid #00C895;
   border: 1px solid transparent;
@@ -44,4 +43,21 @@
   border: 1px solid transparent;
   border-bottom: 1px solid red;
   outline: 1px solid transparent !important;
+}
+
+.btn-disabled {
+  border: 1px solid #00C895 !important;
+  color: #00C895 !important;
+  font-weight: bold;
+}
+
+.btn-enabled {
+  background-color: #191933;
+  color: #00C895 !important;
+  font-weight: bold;
+}
+
+.btn-enabled:hover, .btn-enabled:focus {
+  background-color: #00C895;
+  color: #11111a !important;
 }

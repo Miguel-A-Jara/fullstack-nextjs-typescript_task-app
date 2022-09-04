@@ -1,8 +1,8 @@
 .circle {
-  border-top:     10px solid #000;
-  border-bottom:  10px solid #000;
-  border-right:   10px solid #2290bb;
-  border-left:    10px solid #2290bb;
+  border-top:     7px solid #191933;
+  border-bottom:  7px solid #191933;
+  border-right:   7px solid #00C895;
+  border-left:    7px solid #00C895;
   border-radius: 50%;
 
   animation: spin 1s ease-in-out infinite;

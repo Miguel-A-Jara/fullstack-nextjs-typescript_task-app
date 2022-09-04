@@ -20,7 +20,7 @@ const FormTextInput = ({ text, register, errors, icon }: IFormTextInputProps ) =
           data-for={ text }
           className={`${ styles.label } d-flex align-items-center justify-content-lg-end col-12 col-lg-2 fs-4`}
         >
-          <i className={`bi ${icon} me-3 fs-3`} />
+          <i className={`bi ${icon} me-3 me-lg-0 fs-3`} />
           <small className='d-lg-none'>{ text }</small>
       
         </label>
@@ -32,7 +32,7 @@ const FormTextInput = ({ text, register, errors, icon }: IFormTextInputProps ) =
             autoComplete='off'
             {...register}
             placeholder={`${ text }...`}
-            className={`${ !errors ? styles.input : styles['input-error'] } form-control fs-5 fw-bold`}
+            className={`${ !errors ? styles.input : styles['input-error'] } form-control fs-5 fw-bold app-shadow-close`}
           />
       
           <span className='col-12 text-danger fs-6 fw-bold'>{ errors?.message }</span> 

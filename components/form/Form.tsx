@@ -1,3 +1,4 @@
+import { useState }  from 'react';
 import { useRouter } from 'next/router';
 
 import { useForm }     from 'react-hook-form';
@@ -13,6 +14,7 @@ import FormNumberInput    from './FormNumberInput';
 import FormSubmitButton   from './FormSubmitButton';
 import { useAppDispatch } from '../../utils/hooks/reduxHooks';
 import { addTodo }        from '../../redux/slices/todoSlice';
+import LoadingCircle from '../loading/LoadingCircle';
 
 const schema = todoFormSchema();
 
@@ -21,32 +23,37 @@ const Form = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const { register, handleSubmit, formState: { errors, isValid }, setError } = useForm<IFormFields>({
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
 
-  const submitForm = (data: IFormFields) => {
-
+  const submitForm = async (data: IFormFields) => {
+    
     try {
-      todoFormSendData(data)
-        .then(resp => {
-          if (resp._id) { //If we received an ID then it means the TODO was created
-            
-            const todo = resp;
-            delete todo.__v; // We remove the MONGO id (__v) from the response
-            
-            dispatch(addTodo(todo));
-            router.push(`/todo/${resp._id}`)
 
-          }
+      setIsSubmitting(true);
+      todoFormSendData(data).then((resp) => {
+        if (resp._id) {
+          //If we received an ID then it means the TODO was created
 
-          if (resp.statusCode === 400) {
-            setError('title', { type: 'custom', message: resp.message })
-          }
-        })
+          const todo = resp;
+          delete todo.__v; // We remove the MONGO id (__v) from the response
+
+          dispatch(addTodo(todo));
+          router.push(`/todo/${resp._id}`);
+        }
+
+        if (resp.statusCode === 400) {
+          setError('title', { type: 'custom', message: resp.message });
+          setIsSubmitting(false);
+        }
+      });
 
     } catch (error) {
+      setIsSubmitting(false);
       console.log(error);
     }
   };
@@ -81,8 +88,11 @@ const Form = () => {
         errors={errors.priority}
       />
 
-      <div className='col-12 d-flex justify-content-end pe-5'>
-        <FormSubmitButton isValid={ isValid } />
+      <div className='col-12 d-flex flex-lg-row align-items-center gap-3 justify-content-end pe-lg-5'>
+        { isSubmitting &&  <LoadingCircle size={40} /> }
+
+        {/* Returns true if the form is valid and is not submitting */}
+        <FormSubmitButton isValid={ isValid && !isSubmitting} />
       </div>
 
     </form>
