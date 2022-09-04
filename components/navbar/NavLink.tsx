@@ -8,11 +8,9 @@ interface INavLinkProps {
 
 const NavLink = ({ href, text }: INavLinkProps) => {
 
-  const router = useRouter();
-
   return (
     <Link href={ href }>
-      <a className={`navbar-brand ${ router.pathname === href ? 'border-bottom border-2' : '' }`}>
+      <a className={`navbar-brand`}>
         { text }
       </a>
     </Link>

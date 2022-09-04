@@ -1,11 +1,11 @@
 import { MouseEvent } from 'react';
 import styles         from '../../styles/navbar.module.css';
 
-import NavLink            from './NavLink'
 import DropDownFilter     from './DropDownFilter'
 import NavbarToggleButton from './NavbarToggleButton';
 import { useAppDispatch } from '../../utils/hooks/reduxHooks';
 import { filterTodos, updateFilterParams } from '../../redux/slices/todoSlice';
+import NavbarLinkItem from './NavbarLinkItem';
 
 interface INavbarProps {
   refHeight: any;
@@ -28,16 +28,18 @@ const Navbar = ({ refHeight }: INavbarProps) => {
       <nav className='navbar navbar-dark navbar-expand-lg app-shadow'>
         <div className='container-fluid'>
 
+          <NavbarLinkItem href='/' text='Tasks'>
             <i className='d-none d-lg-inline bi bi-house-fill fs-4'/>
-            <NavLink href='/' text='Tasks' />
+          </NavbarLinkItem>
 
           <NavbarToggleButton />
           
           <div className='collapse navbar-collapse' id='navbarNav'>
             <ul className='navbar-nav w-100 justify-content-around align-items-center'>
               <li className='nav-item d-flex align-items-center justify-content-around gap-1'>
-                <i className='bi bi-plus-circle-fill fs-4' />
-                <NavLink href='/add-todo' text='Add Task' />
+                <NavbarLinkItem href='/add-todo' text='Add Task'>
+                  <i className='bi bi-plus-circle-fill fs-4' />
+                </NavbarLinkItem>
               </li>
               <li className='nav-item'>
                 <DropDownFilter 

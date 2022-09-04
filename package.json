@@ -21,6 +21,7 @@
     "react-redux": "^8.0.2",
     "react-select": "^5.4.0",
     "react-slider": "^2.0.3",
+    "react-tooltip": "^4.2.21",
     "yup": "^0.32.11"
   },
   "devDependencies": {
