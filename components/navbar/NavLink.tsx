@@ -10,7 +10,7 @@ const NavLink = ({ href, text }: INavLinkProps) => {
 
   return (
     <Link href={ href }>
-      <a className={`navbar-brand`}>
+      <a className={`navbar-brand m-0`}>
         { text }
       </a>
     </Link>

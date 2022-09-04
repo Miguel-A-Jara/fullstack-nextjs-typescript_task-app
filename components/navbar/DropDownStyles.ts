@@ -6,6 +6,8 @@ const DropDownStyles: StylesConfig = {
     border: 'none',
     outline: 'none',
     color: '#00C895',
+    margin: '0 auto',
+    maxWidth: '720px',
     overflow: 'hidden',
     alignItems: 'stretch',
     backgroundColor: '#191933',
@@ -19,7 +21,7 @@ const DropDownStyles: StylesConfig = {
   }),
   input: (provided, state) => ({
     ...provided,
-    color: 'white'
+    color: 'white',
   }),
   option: (provided, state) => ({
     ...provided,
@@ -53,6 +55,7 @@ const DropDownStyles: StylesConfig = {
   dropdownIndicator: (provided, state) => ({
     ...provided,
     color: 'inherit',
+    padding: '0px 5px',
     ":hover": { color: 'inherit', cursor: 'pointer' },
   }),
   clearIndicator: (provided, state) => ({

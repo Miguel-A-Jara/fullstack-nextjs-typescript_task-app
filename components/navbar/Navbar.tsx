@@ -35,9 +35,9 @@ const Navbar = ({ refHeight }: INavbarProps) => {
           <NavbarToggleButton />
           
           <div className='collapse navbar-collapse' id='navbarNav'>
-            <ul className='navbar-nav w-100 justify-content-around align-items-center'>
+            <ul className='navbar-nav w-100 gap-2 justify-content-around align-items-lg-center'>
               <li className='nav-item d-flex align-items-center justify-content-around gap-1'>
-                <NavbarLinkItem href='/add-todo' text='Add Task'>
+                <NavbarLinkItem styleProps='mt-3 mb-1 my-lg-0 w-100' href='/add-todo' text='Add Task'>
                   <i className='bi bi-plus-circle-fill fs-4' />
                 </NavbarLinkItem>
               </li>
@@ -62,9 +62,12 @@ const Navbar = ({ refHeight }: INavbarProps) => {
               <li className='nav-item'>
                 <button 
                   onClick={handleClick}
-                  className={`btn btn-primary text-secondary fw-bold d-flex align-items-center ${styles.button}`}
+                  className={
+                    `btn w-100 btn-primary text-secondary d-flex justify-content-center 
+                    justify-content-lg-start align-items-center ${styles.button} px-2`
+                  }
                 >
-                <i className='bi bi-x-circle-fill me-2 fs-5'/>
+                <i className='bi bi-x-circle-fill me-2'/>
                   Clear all filters
                 </button>
               </li>
