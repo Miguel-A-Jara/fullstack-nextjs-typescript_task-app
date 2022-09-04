@@ -1,17 +1,35 @@
+import { WritableDraft } from 'immer/dist/internal';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import updateTodoHelper from '../helpers/todoSliceHelpers/updateTodo';
 import { ITodo } from './../../interfaces/Todos/ITodo';
 
+type FilterParamsType = { param: keyof ITodo, value: string | number | boolean };
+
 export type InitStateType = {
-  todos:  ITodo[] | [],
+  todos    : ITodo[] | [],
   todosCopy: ITodo[] | [],
   isLoading: boolean;
+  filterParams: FilterParamsType[];
 }
 
 const initialState: InitStateType = {
   todos: [],
   todosCopy: [],
-  isLoading: false
+  isLoading: false,
+  filterParams: [
+    {
+      param: 'author',
+      value: 'All'
+    },
+    {
+      param: 'completed',
+      value: 'All'
+    },
+    {
+      param: 'priority',
+      value: 'All'
+    },
+  ],
 }
 
 const todoSlice = createSlice({
@@ -42,8 +60,7 @@ const todoSlice = createSlice({
 
       if ( !updatedTodo ) return state;
 
-      state.todos = state.todos.map( todo => todo._id === updatedTodo._id ? updatedTodo : todo );
-      state.todosCopy = state.todos;
+      state.todosCopy = state.todosCopy.map( todo => todo._id === updatedTodo._id ? updatedTodo : todo );
 
     },
     deleteTodo: (state, action: PayloadAction<string>) => {
@@ -52,15 +69,51 @@ const todoSlice = createSlice({
       state.todosCopy = state.todos;
 
     },
-    filterTodos: (state, action: PayloadAction<{ field: keyof ITodo, value: string }>) => {
+    filterTodos: (state) => {
 
-      if (action.payload.value === 'All') {
+      const areFilterParams = state.filterParams.every(param => param.value === 'All');
+      if ( areFilterParams ) {
         state.todos = state.todosCopy;
         return;
       }
       
-      state.todos = state.todosCopy.filter(todo => todo[action.payload.field] === action.payload.value);
+      const filteredTodos = state.todosCopy.filter(todo => {
 
+        let firstCondition:  boolean;
+        let secondCondition: boolean;
+        let thirdCondition:  boolean; 
+
+        state.filterParams[0].value === 'All'
+          ? firstCondition = true
+          : firstCondition = todo.author === state.filterParams[0].value;
+        
+        state.filterParams[1].value === 'All'
+          ? secondCondition = true
+          : secondCondition = todo.completed === state.filterParams[1].value;
+        
+        state.filterParams[2].value === 'All'
+          ? thirdCondition = true
+          : thirdCondition = todo.priority === state.filterParams[2].value;
+        
+
+        if ( firstCondition && secondCondition && thirdCondition ) {
+          return todo;
+        };
+      
+        return null;
+
+      });
+
+      state.todos = filteredTodos as WritableDraft<ITodo>[];
+
+    },
+    updateFilterParams: (state, action: PayloadAction<FilterParamsType>) => {
+
+      state.filterParams = state.filterParams.map(p => (
+        p.param === action.payload.param
+          ? { ...p, value: action.payload.value }
+          : ( p )
+      ))
     },
   }
 });
@@ -72,5 +125,6 @@ export const {
   updateTodo,
   deleteTodo,
   filterTodos,
+  updateFilterParams
 } = todoSlice.actions;
 export default todoSlice.reducer;

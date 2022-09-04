@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import Select from 'react-select';
 
-import { filterTodos } from '../../redux/slices/todoSlice';
+import { filterTodos, updateFilterParams, updateTodo } from '../../redux/slices/todoSlice';
 import DropDownStyles  from './DropDownStyles';
 import { ITodo }       from '../../interfaces/Todos/ITodo';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/reduxHooks';
@@ -37,13 +37,15 @@ const DropDownFilter = ({ fieldToFilter, placeholderText }: IDropDownFilterProps
 
   const handleFilterChange = (e: DropDownValues | unknown) => {
     
-    if ( !e ) { //If e does not exist, then nothing is selected
-      dispatch(filterTodos({ value: 'All', field: fieldToFilter }));
+    if ( !e ) { //If e does not exist, then nothing is selected, so we send "All"
+      dispatch(updateFilterParams({ param: fieldToFilter, value: 'All' }));
+      dispatch(filterTodos());
       return;
     }
-
+    
     const value: DropDownValues = e as DropDownValues; //Casting
-    dispatch(filterTodos({ value: value.value, field: fieldToFilter }));
+    dispatch(updateFilterParams({ param: fieldToFilter, value: value.value }));
+    dispatch(filterTodos());
 
   };
 
@@ -68,6 +70,7 @@ const DropDownFilter = ({ fieldToFilter, placeholderText }: IDropDownFilterProps
       <Select 
         options={options} 
         isClearable={true}
+        instanceId={ placeholderText }
         styles={DropDownStyles}
         onChange={handleFilterChange}
         placeholder={ placeholderText }

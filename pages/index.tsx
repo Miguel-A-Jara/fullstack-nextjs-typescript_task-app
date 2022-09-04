@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
 import getTodosThunk from '../redux/slices/getTodosThunk';
 import { ITodo }     from '../interfaces/Todos/ITodo';
 import LoadingScreen from '../components/loading/LoadingScreen';
+import EmptyCardList from '../components/cards/EmptyCardList';
 
 const Home: NextPageWithLayout = () => {
 
@@ -33,9 +34,11 @@ const Home: NextPageWithLayout = () => {
         { isLoading && <LoadingScreen /> }
         
         {
-          todos.map(todo => (
-            <TodoCard key={todo._id} cardsInfo={todo} />
-          ))
+          todos.length > 0 
+            ? todos.map(todo => (
+                <TodoCard key={todo._id} cardsInfo={todo} />
+              ))
+            : <EmptyCardList />
         }
         </div>
       </section>

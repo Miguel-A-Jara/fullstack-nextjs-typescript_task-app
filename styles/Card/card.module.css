@@ -54,3 +54,13 @@
   background: #00C895;
   border-radius: 35%;
 }
+
+.card-empty {
+  padding: 2em;
+  margin: 0 auto;
+  color: #00C895;
+  margin-top: 200px;
+  text-align: center;
+  border-radius: 0.5em;
+  background: #11111a;
+}
