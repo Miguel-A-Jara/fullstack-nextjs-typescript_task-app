@@ -1,17 +1,32 @@
 import IFormFields from "../../components/form/IFormFields";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-const fullURL = `${BASE_URL}todos/`;
+const BASE_URL   = process.env.NEXT_PUBLIC_BASE_URL;
+const fullTxtURL = `${BASE_URL}todos/`;
+const fullImgURL = `${BASE_URL}todos/image/`;
 
 const todoFormSendData = async (data: IFormFields) => {
 
-  const resp = await fetch(fullURL, {
+  //We get the image form the form Data
+  const imageData: File = data.image;
+
+  //We remove the image from the 'text' fields
+  let dataNoImage: Partial<IFormFields> = data;
+  delete dataNoImage.image;
+
+  //Text fields
+  const txtResp = await fetch(fullTxtURL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
+    body: JSON.stringify(dataNoImage),
   });
 
-  const respData = await resp.json();
+  //Image field
+  const imgResp = await fetch(fullImgURL, {
+    method: 'POST',
+    body: imageData
+  })
+
+  const respData = txtResp.json();
   
   return respData;
 };

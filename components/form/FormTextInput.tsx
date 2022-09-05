@@ -4,10 +4,10 @@ import { UseFormRegisterReturn } from 'react-hook-form';
 import styles from '../../styles/Form/form.module.css';
 
 interface IFormTextInputProps {
-  text: string;
-  register: UseFormRegisterReturn;
   errors: any; //We use 'any' as we don't get much benefits from strong-typing it.
+  text: string;
   icon: string;
+  register: UseFormRegisterReturn;
 }
 
 const FormTextInput = ({ text, register, errors, icon }: IFormTextInputProps ) => {
