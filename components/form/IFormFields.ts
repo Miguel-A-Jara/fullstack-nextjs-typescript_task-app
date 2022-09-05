@@ -7,6 +7,8 @@ interface IFormFields {
 
   priority: string;
 
+  image: File;
+
 }
 
 export default IFormFields;

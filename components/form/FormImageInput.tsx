@@ -1,27 +1,43 @@
-import { useState } from 'react'
-import Image        from 'next/image';
-import ReactTooltip from 'react-tooltip';
-import styles from '../../styles/Input/TextAreaInput.module.css';
+import { useEffect, useState } from 'react'
+import Image from 'next/image';
+
+import { UseFormRegisterReturn, UseFormWatch } from 'react-hook-form';
+
+import IFormFields from './IFormFields';
+
 
 interface IFormImageInputProps {
+  errors: any; //We use 'any' as we don't get much benefits from strong-typing it.
   icon: string;
+  register: UseFormRegisterReturn;
+  watchValue: UseFormWatch<IFormFields>;
 }
 
-const FormImageInput = ({ icon }: IFormImageInputProps) => {
+const FormImageInput = ({ icon, errors, register, watchValue }: IFormImageInputProps) => {
 
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [ratio, setRatio] = useState(16/9);
+
+  const imageVal = watchValue('image');
+
+  useEffect(() => {
+    
+    if (imageVal && selectedImage) {
+      setSelectedImage(imageVal[0]);
+    } 
+
+  }, [imageVal]);
 
   return (
     <>
       {selectedImage && (
         <div style={{ maxWidth: 500, maxHeight: 500 }}>
           <Image
-            alt='Not found'
-            src={URL.createObjectURL(selectedImage)}
             width={200}
+            layout='fixed'
+            alt='Not found'
             height={200 / ratio}
-            layout='fixed' // you can use "responsive", "fill" or the default "intrinsic"
+            src={URL.createObjectURL(selectedImage)}
             onLoadingComplete={({ naturalWidth, naturalHeight }) =>
               setRatio(naturalWidth / naturalHeight)
             }
@@ -33,13 +49,11 @@ const FormImageInput = ({ icon }: IFormImageInputProps) => {
       <br />
       <input
         type='file'
-        onChange={(event) => {
-          if (event && event.target && event.target.files)
-            setSelectedImage(event.target.files[0]);
-        }}
+        {...register}
       />
+      <span className='col-12 text-danger fs-6 fw-bold'>{errors?.message}</span>
     </>
-  )
+  );
 }
 
 export default FormImageInput

@@ -14,8 +14,8 @@ import FormNumberInput    from './FormNumberInput';
 import FormSubmitButton   from './FormSubmitButton';
 import { useAppDispatch } from '../../utils/hooks/reduxHooks';
 import { addTodo }        from '../../redux/slices/todoSlice';
-import LoadingCircle from '../loading/LoadingCircle';
-import FormImageInput from './FormImageInput';
+import LoadingCircle      from '../loading/LoadingCircle';
+import FormImageInput     from './FormImageInput';
 
 const schema = todoFormSchema();
 
@@ -26,13 +26,14 @@ const Form = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { register, handleSubmit, formState: { errors, isValid }, setError } = useForm<IFormFields>({
+  const { register, handleSubmit, watch, formState: { errors, isValid }, setError } = useForm<IFormFields>({
     resolver: yupResolver(schema),
     mode: 'onChange',
+    reValidateMode: 'onChange'
   });
 
   const submitForm = async (data: IFormFields) => {
-    
+
     try {
 
       setIsSubmitting(true);
@@ -60,6 +61,7 @@ const Form = () => {
   };
 
   return (
+
     <form
       className={`${ styles.form } app-shadow p-3 p-lg-5 row rounded-lg justify-content-center justify-content-lg-start align-items-start`} 
       onSubmit={handleSubmit(submitForm)}
@@ -90,7 +92,10 @@ const Form = () => {
       />
 
       <FormImageInput 
-        icon='' 
+        icon='bi-alarm-fill'
+        watchValue={watch}
+        errors={errors.image}
+        register={register('image')}
       />
 
       <div className='col-12 d-flex flex-lg-row align-items-center gap-3 justify-content-end pe-lg-5'>
