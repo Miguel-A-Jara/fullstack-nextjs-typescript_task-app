@@ -24,20 +24,22 @@ const PriorityInput = ({ name, setTodoState, value, completed }: IPriorityInputP
   return (
     <div className={`${ completed && styles.completed }`}>
       <h4 className='mb-5 text-center text-lg-start'>Priority: { priorityState + 1 }</h4>
-      <ReactSlider
-        min={0}
-        max={4}
-        value={value - 1}
-        className={styles['priority-track']}
-        thumbClassName={styles['priority-thumb']}
-        onChange={handleChange}
-        renderThumb={(props, state) => (
-          <div {...props}
-          >
-            <PriorityInputThumb value={(state.value + 1)} />
-          </div>
-        )}
-      />
+      <div className={`${styles['priority-wrapper']} py-5 rounded-lg`}>
+        <ReactSlider
+          min={0}
+          max={4}
+          value={value - 1}
+          className={styles['priority-track']}
+          thumbClassName={styles['priority-thumb']}
+          onChange={handleChange}
+          renderThumb={(props, state) => (
+            <div {...props}
+            >
+              {/* <PriorityInputThumb value={(state.value + 1)} /> */}
+            </div>
+          )}
+        />
+      </div>
     </div> 
   )
 }

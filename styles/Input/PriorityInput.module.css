@@ -14,9 +14,13 @@
   z-index: 1;
 }
 
+.priority-wrapper {
+  background: #11111a;
+}
+
 .priority-track {
-  background: #000;
-  padding: 0.5em 0;
+  background: #00C895;
+  padding: 0.25em 0;
   margin: 0 1em;
   display: flex;
   justify-content: center;
@@ -25,11 +29,10 @@
 }
 
 .priority-thumb {
-  background: #000;
-  border: 3px solid white;
-  font-size: 2.5em;
-  width: 60px;
-  height: 60px;
+  background: #191933;
+  border: 5px solid #11111a;
+  width: 40px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,4 +44,7 @@
 
 .thumb-icon {
   transition: all 300ms ease-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
