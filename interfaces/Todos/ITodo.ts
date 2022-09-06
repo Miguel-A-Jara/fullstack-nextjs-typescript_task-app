@@ -1,8 +1,9 @@
 export interface ITodo {
   _id:         string;
-  author:      string;
+  name:        string;
   title:       string;
-  description: string;
+  author:      string;
   priority:    number;
   completed:   boolean;
+  description: string;
 }

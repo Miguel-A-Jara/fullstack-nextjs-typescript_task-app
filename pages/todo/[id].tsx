@@ -18,6 +18,7 @@ const TodoPage: NextPageWithLayout = () => {
   const [fetchedTodo, setFetchedTodo] = useState<ITodo | null>(null);
   const [todoState, setTodoState] = useState<ITodo | null>(null);
   const [isTodoChanged, setIsTodoChanged] = useState(false);
+  const [image, setImage] = useState<any>(null);
 
   useEffect(() => {
     
@@ -26,8 +27,17 @@ const TodoPage: NextPageWithLayout = () => {
       .then(data => {
         setFetchedTodo(data);
         setTodoState(data);
-      })
-  }, [id]);
+      });
+
+    if ( todoState ) {
+      const getTodoImg = `http://localhost:3500/todos/image/${todoState._id}`
+      fetch(getTodoImg).then(data => data.blob()).then(resp => {
+        const imag = URL.createObjectURL(resp);
+        setImage(imag);
+      });
+    }
+
+  }, [id, todoState]);
 
   useEffect(() => {
     
@@ -38,6 +48,11 @@ const TodoPage: NextPageWithLayout = () => {
 
   return (
     <div className='row mt-3'>
+
+    { image && (
+      <img src={ image }  alt=' hfjhfj ' />
+    )}
+
     {
       todoState && (
         <>

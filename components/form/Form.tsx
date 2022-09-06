@@ -16,6 +16,7 @@ import { useAppDispatch } from '../../utils/hooks/reduxHooks';
 import { addTodo }        from '../../redux/slices/todoSlice';
 import LoadingCircle      from '../loading/LoadingCircle';
 import FormImageInput     from './FormImageInput';
+import { ITodo }          from '../../interfaces/Todos/ITodo';
 
 const schema = todoFormSchema();
 
@@ -38,18 +39,18 @@ const Form = () => {
 
       setIsSubmitting(true);
       todoFormSendData(data).then((resp) => {
-        if (resp._id) {
-          //If we received an ID then it means the TODO was created
-
-          const todo = resp;
-          delete todo.__v; // We remove the MONGO id (__v) from the response
+        const { respData, respImag } = resp;
+        if ( respData._id && respImag.name ) {
+          //If we received an ID and a name then it means the TODO was created
+          
+          const todo: ITodo = {...respData, ...respImag};
 
           dispatch(addTodo(todo));
-          router.push(`/todo/${resp._id}`);
+          router.push(`/todo/${respData._id}`);
         }
 
-        if (resp.statusCode === 400) {
-          setError('title', { type: 'custom', message: resp.message });
+        if (respData.statusCode === 400) {
+          setError('title', { type: 'custom', message: respData.message });
           setIsSubmitting(false);
         }
       });
