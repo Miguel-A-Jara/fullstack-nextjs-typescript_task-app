@@ -58,14 +58,21 @@ const TodoPage: NextPageWithLayout = () => {
   return (
     <div className='row mt-3'>
 
-    { image && (
-      <Image 
-        src={ image }  
-        alt={todoState?.title}
-        width={200}
-        height={120}
-      />
-    )}
+    <div 
+      className='col-12 col-lg-6 d-flex justify-content-center position-relative overflow-hidden app-shadow-close rounded-lg'
+      style={{minWidth: 100, minHeight: 100}}
+    >
+      { image && (
+        
+        <Image
+          src={ image }
+          alt={todoState?.title}
+          objectFit='cover'
+          layout='fill'
+        />
+
+      )}
+    </div>
 
     {
       todoState && (
