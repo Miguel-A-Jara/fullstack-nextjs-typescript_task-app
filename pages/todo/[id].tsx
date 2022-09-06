@@ -9,6 +9,7 @@ import EditableInput from '../../components/input/EditableInput';
 import MainLayout    from '../../components/layout/MainLayout';
 import TodoCardCompletedToggle from '../../components/cards/TodoCardCompletedToggle';
 import PriorityInput from '../../components/input/PriorityInput';
+import Image from 'next/image';
 
 const TodoPage: NextPageWithLayout = () => {
 
@@ -21,23 +22,31 @@ const TodoPage: NextPageWithLayout = () => {
   const [image, setImage] = useState<any>(null);
 
   useEffect(() => {
-    
-    const getTodoURL = `todos/${id}`;
-    fetchTodos<ITodo>(getTodoURL)
-      .then(data => {
-        setFetchedTodo(data);
-        setTodoState(data);
-      });
 
-    if ( todoState ) {
-      const getTodoImg = `http://localhost:3500/todos/image/${todoState._id}`
-      fetch(getTodoImg).then(data => data.blob()).then(resp => {
-        const imag = URL.createObjectURL(resp);
-        setImage(imag);
-      });
+    if ( !todoState ) {
+
+      const getTodoURL = `todos/${id}`;
+      fetchTodos<ITodo>(getTodoURL)
+        .then((data: ITodo) => {
+          setFetchedTodo(data);
+          setTodoState(data);
+        });
     }
 
   }, [id, todoState]);
+
+  useEffect(() => {
+
+    if ( !fetchedTodo ) return;
+
+    const getTodoImg = `http://localhost:3500/todos/image/${fetchedTodo?._id}`
+
+    fetch(getTodoImg).then(data => data.blob()).then(resp => {
+      const imag = URL.createObjectURL(resp);
+      setImage(imag);
+    });
+
+  }, [fetchedTodo]);
 
   useEffect(() => {
     
@@ -50,7 +59,12 @@ const TodoPage: NextPageWithLayout = () => {
     <div className='row mt-3'>
 
     { image && (
-      <img src={ image }  alt=' hfjhfj ' />
+      <Image 
+        src={ image }  
+        alt={todoState?.title}
+        width={200}
+        height={120}
+      />
     )}
 
     {

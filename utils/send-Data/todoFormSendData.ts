@@ -31,6 +31,7 @@ const todoFormSendData = async (data: IFormFields) => {
     body: imageBody
   });
   
+  console.log(imgResp);
   const respImag = await imgResp.json();
 
   return { respData, respImag };
