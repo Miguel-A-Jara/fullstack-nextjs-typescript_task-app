@@ -60,7 +60,7 @@ const TodoPage: NextPageWithLayout = () => {
 
     <div 
       className='col-12 col-lg-6 d-flex justify-content-center position-relative overflow-hidden app-shadow-close rounded-lg'
-      style={{minWidth: 100, minHeight: 100}}
+      style={{minWidth: 100, minHeight: 300}}
     >
       { image && (
         
@@ -69,6 +69,7 @@ const TodoPage: NextPageWithLayout = () => {
           alt={todoState?.title}
           objectFit='cover'
           layout='fill'
+          objectPosition='center'
         />
 
       )}

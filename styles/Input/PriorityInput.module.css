@@ -29,17 +29,22 @@
 }
 
 .priority-thumb {
-  background: #191933;
+  background: #00C895;
   border: 5px solid #11111a;
   width: 40px;
   height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   cursor: grab;
 
   border-radius: 50%;
   transition: all 150ms ease-in-out;
+}
+
+.priority-thumb h3 {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #11111a;
 }
 
 .thumb-icon {
