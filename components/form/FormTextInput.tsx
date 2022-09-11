@@ -3,6 +3,7 @@ import { UseFormRegisterReturn } from 'react-hook-form';
 
 import styles from '../../styles/Form/form.module.css';
 import { useEffect, useState } from 'react';
+import ErrorMessage from './ErrorMessage';
 
 interface IFormTextInputProps {
   errors: any; //We use 'any' as we don't get much benefits from strong-typing it.
@@ -43,7 +44,7 @@ const FormTextInput = ({ text, register, errors, icon }: IFormTextInputProps ) =
             className={`${ !errors ? styles.input : styles['input-error'] } form-control fs-5 fw-bold app-shadow-close`}
           />
       
-          <span className='col-12 text-danger fs-6 fw-bold'>{ errors?.message }</span> 
+          <ErrorMessage errors={errors} />
         </div>
       
       </div>

@@ -24,7 +24,7 @@ const PriorityInput = ({ name, setTodoState, value, completed }: IPriorityInputP
   return (
     <>
       <div className={`${completed && styles.completed}`}>
-        <h4 className='mb-5 text-center text-lg-start'>
+        <h4 className='d-none d-lg-block mb-5 text-center text-lg-start'>
           Priority: {priorityState + 1}
         </h4>
         <div className={`${styles['priority-wrapper']} py-5 rounded-lg`}>

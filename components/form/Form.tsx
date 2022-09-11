@@ -18,7 +18,7 @@ import LoadingCircle      from '../loading/LoadingCircle';
 import FormImageInput     from './FormImageInput';
 import { ITodo }          from '../../interfaces/Todos/ITodo';
 
-const schema = todoFormSchema();
+export const schema = todoFormSchema();
 
 const Form = () => {
 

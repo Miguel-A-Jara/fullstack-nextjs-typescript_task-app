@@ -29,6 +29,12 @@
   box-shadow:
     3px 3px 3px hsl(220deg 0% 0% / 0.3) !important;
 }
+  
+.img-wrapper > span {
+  box-shadow:
+    3px 3px 3px hsl(220deg 0% 0% / 0.3) !important;
+  border-radius: 0.25em
+}
 
 .app-shadow {
   box-shadow:

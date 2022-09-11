@@ -1,13 +1,26 @@
-import { ChangeEvent, Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from 'react';
+import { 
+  ChangeEvent, 
+  Dispatch, 
+  RefObject, 
+  SetStateAction, 
+  useEffect, 
+  useRef, 
+  useState 
+} from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
 import styles from '../../styles/Input/TextAreaInput.module.css';
 
 import { ITodo } from '../../interfaces/Todos/ITodo';
+import ErrorMessage from '../form/ErrorMessage';
 
 interface IEditableInputProps {
-  text: string;
-  style?: string;
-  name: keyof ITodo;
+  errors  : any; //We use 'any' as we don't get much benefits from strong-typing it.
+  text    : string;
+  style?  : string;
+  name    : keyof ITodo;
+  register: UseFormRegisterReturn;
+
   setTodoState: Dispatch<SetStateAction<ITodo | null>>;
 }
 
@@ -27,10 +40,11 @@ const resizeTextArea = (e: ChangeEvent<HTMLTextAreaElement> | RefObject<HTMLText
   e.target.style.height = `${e.target.scrollHeight}px`;
 };
 
-const EditableInput = ({ style, text, setTodoState, name }: IEditableInputProps) => {
+const EditableInput = ({ style, text, setTodoState, name, register, errors }: IEditableInputProps) => {
 
   const [textValue, setTextValue] = useState(text);
   const myElement = useRef<HTMLTextAreaElement | null>(null);
+  const myRegister = register;
 
   useEffect(() => {
 
@@ -53,13 +67,21 @@ const EditableInput = ({ style, text, setTodoState, name }: IEditableInputProps)
     <>
       <textarea
         rows={1}
-        ref={myElement}
         value={textValue}
-        onChange={handleChange}
         onFocus={resizeTextArea}
+        {...myRegister}
+
+        ref={((el: HTMLTextAreaElement) => myElement) && myRegister.ref}
+
+        onChange={(e) => {
+          myRegister.onChange(e);
+          handleChange(e);
+        }}
+        
         className={`${styles['text-area']} ${style} w-100 py-1 text-center border-0 mt-1 mb-3`}
       >
       </textarea>
+      <ErrorMessage customStyle='text-center d-block' errors={errors} />
     </>
   )
 }
