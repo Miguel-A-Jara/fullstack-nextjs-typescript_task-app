@@ -2,6 +2,7 @@ import ReactTooltip from 'react-tooltip';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
 import styles from '../../styles/Form/form.module.css';
+import { useEffect, useState } from 'react';
 
 interface IFormTextInputProps {
   errors: any; //We use 'any' as we don't get much benefits from strong-typing it.
@@ -11,6 +12,13 @@ interface IFormTextInputProps {
 }
 
 const FormTextInput = ({ text, register, errors, icon }: IFormTextInputProps ) => {
+
+  const [isMounted, setIsMounted] = useState(false); //This makes sure that ReactTooltip works properly
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <>
       <div className='col-12 col-lg-6 row align-items-start mb-3'>
@@ -39,16 +47,20 @@ const FormTextInput = ({ text, register, errors, icon }: IFormTextInputProps ) =
         </div>
       
       </div>
-      <ReactTooltip 
-        border
-        backgroundColor='#11111a'
-        className='tooltip'
-        id={text}
-      >
-        <div className='d-flex align-items-center justify-content-center text-secondary'>
-          <small className='fs-6'>{ text }</small>
-        </div>
-      </ReactTooltip>
+      {
+        isMounted && (
+          <ReactTooltip 
+            border
+            backgroundColor='#11111a'
+            className='tooltip'
+            id={text}
+          >
+            <div className='d-flex align-items-center justify-content-center text-secondary'>
+              <small className='fs-6'>{ text }</small>
+            </div>
+          </ReactTooltip>
+        )
+      }
     </>
   )
 }

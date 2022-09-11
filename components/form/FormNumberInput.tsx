@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import ReactTooltip              from 'react-tooltip';
 
@@ -11,6 +12,13 @@ interface IFormNumberInputProps {
 }
 
 const FormNumberInput = ({ text, register, errors, icon }: IFormNumberInputProps ) => {
+
+  const [isMounted, setIsMounted] = useState(false); //This makes sure that ReactTooltip works properly
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <div className='col-12 col-lg-6 row align-items-start mb-3'>
       <label 
@@ -37,16 +45,20 @@ const FormNumberInput = ({ text, register, errors, icon }: IFormNumberInputProps
         <span className='col-12 text-danger fs-6 fw-bold'>{ errors?.message }</span> 
       </div>
 
-      <ReactTooltip
-        border
-        backgroundColor='#11111a'
-        className='tooltip'
-        id={text}
-      >
-        <div className='d-flex align-items-center justify-content-center text-secondary'>
-          <small className='fs-6'>{ text }</small>
-        </div>
-      </ReactTooltip>
+      {
+        isMounted && (
+          <ReactTooltip 
+            border
+            backgroundColor='#11111a'
+            className='tooltip'
+            id={text}
+          >
+            <div className='d-flex align-items-center justify-content-center text-secondary'>
+              <small className='fs-6'>{ text }</small>
+            </div>
+          </ReactTooltip>
+        )
+      }
     </div>
   )
 }

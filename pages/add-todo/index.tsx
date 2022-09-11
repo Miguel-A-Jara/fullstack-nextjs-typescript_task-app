@@ -12,7 +12,7 @@ const index: NextPageWithLayout = () => {
     <Head>
       <title>Task Manager - Add Task</title>
     </Head>
-      <div className='py-5'>
+      <div className='py-lg-5'>
         <Form />
       </div>
     </>

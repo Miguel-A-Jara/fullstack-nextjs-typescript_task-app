@@ -7,7 +7,7 @@ interface IFormFields {
 
   priority: string;
 
-  image: File;
+  image: File | null;
 
 }
 

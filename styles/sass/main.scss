@@ -1,8 +1,12 @@
 // Custom Styles
-$primary: #191933;
+$primary  : #191933;
 $secondary: #00C895;
-$danger: #f22;
-$success: #12a829;
+$danger   : #f22;
+$success  : #12a829;
+
+$form-file-button-color     : $secondary;
+$form-file-button-bg        : $primary;
+$form-file-button-hover-bg  : lighten($form-file-button-bg, 5%);
 
 // Import Bootstrap SCSS
 @import '../../node_modules/bootstrap/scss/bootstrap';

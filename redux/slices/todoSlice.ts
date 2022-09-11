@@ -50,7 +50,7 @@ const todoSlice = createSlice({
     setTodos: (state, action: PayloadAction<ITodo[]>) => {
 
       state.isLoading = false;
-      state.todos = action.payload;
+      state.todos     = action.payload;
       state.todosCopy = action.payload;
 
     },
@@ -61,6 +61,7 @@ const todoSlice = createSlice({
       if ( !updatedTodo ) return state;
 
       state.todosCopy = state.todosCopy.map( todo => todo._id === updatedTodo._id ? updatedTodo : todo );
+      state.todos     = state.todosCopy;
 
     },
     deleteTodo: (state, action: PayloadAction<string>) => {

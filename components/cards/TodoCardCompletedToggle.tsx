@@ -18,14 +18,29 @@ const TodoCardCompletedToggle = ({ isCompleted, setTodoState, id }: ITodoCardCom
 
   const dispatch = useAppDispatch();
   const [isToggleOn, setIsToggleOn] = useState(isCompleted);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const toggleTodo = () => {
+
+    if ( isUpdating ) return;
+    
+
+    setIsUpdating(true);
+
     updateTodo(id, { completed: !isCompleted })
       .then((data: ITodo) => {
+
+        console.log(data);
+
         dispatch(updateTodoRedux({ _id: id, paramName: 'completed', paramValue: data.completed }));
+        
         setIsToggleOn(data.completed);
-        if ( setTodoState ) //This is used to update the TodoState in the [id] page
+        
+        setIsUpdating(false);
+
+        if ( setTodoState ) //This is only used in the [id] page to update the TodoState 
           setTodoState((prev) => ({...prev as ITodo, completed: data.completed}));
+
       });
   };
 
