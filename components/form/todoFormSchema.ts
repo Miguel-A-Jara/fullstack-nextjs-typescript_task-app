@@ -22,8 +22,14 @@ const todoFormSchema = () => {
       .number().typeError('The priority must be a number')
       .min(1, 'Priority must be a number from 1 to 5')
       .max(5, 'Priority must be a number from 1 to 5'),
+      
     image: yup
-      .mixed().required('A file is required')
+      .mixed()
+      .required('A file is required')
+      .test('file', 'A file is required', (value) => { return value && value.length })
+      .test('fileSize', 'The file is too large (20mb)', (value) => {
+        return value && value.length > 0 && value[0].size < 20000000;
+      })
   })
 
   return schema;

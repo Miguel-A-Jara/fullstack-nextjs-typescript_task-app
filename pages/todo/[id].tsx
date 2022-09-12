@@ -61,7 +61,7 @@ const TodoPage: NextPageWithLayout = () => {
   return (
     <form
       onSubmit={handleSubmit(submitForm)} 
-      className={`${styles['grid-container']} rounded-lg mt-lg-5 py-4 row`}>
+      className={`${styles['grid-container']} rounded-lg my-lg-3 py-5 row`}>
       
       <ImageContainer fetchedTodo={fetchedTodo} todoState={todoState} />
 

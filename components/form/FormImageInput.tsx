@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image';
 
-import { UseFormRegisterReturn, UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import { UseFormRegisterReturn, UseFormSetValue, UseFormTrigger, UseFormWatch } from 'react-hook-form';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
@@ -14,26 +14,33 @@ interface IFormImageInputProps {
   register  : UseFormRegisterReturn;
   setValue  : UseFormSetValue<IFormFields>;
   watchValue: UseFormWatch<IFormFields>;
+  trigger   : UseFormTrigger<IFormFields>;
+
 }
 
-const FormImageInput = ({ errors, register, watchValue, setValue }: IFormImageInputProps) => {
+const FormImageInput = ({ errors, register, watchValue, setValue, trigger }: IFormImageInputProps) => {
 
   const handleRemove = () => {
     setValue('image', null);
     setSelectedImage(null);
   };
 
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [selectedImage, setSelectedImage] = useState<File | null | undefined>(undefined);
   const [ratio, setRatio] = useState(16/9);
 
-  const imageVal = watchValue('image');
+  const imageVal = watchValue('image', null);
 
   useEffect(() => {
 
-    if ( imageVal ) {
+    
+    if ( imageVal !== null) {
       setSelectedImage(imageVal[0]);
     }
 
+    if ( selectedImage === null ) {
+      trigger('image');
+    }
+    
   }, [imageVal]);
 
   return (
@@ -70,10 +77,10 @@ const FormImageInput = ({ errors, register, watchValue, setValue }: IFormImageIn
         </button>
       </>
       <input
+        {...register}
         type='file'
         accept='image/*'
         className={`${ !errors ? styles.input : styles['input-error'] } form-control fs-5 fw-bold app-shadow-close`}
-        {...register}
       />
       <span className='col-12 text-danger fs-6 fw-bold'>{errors?.message}</span>
     </div>

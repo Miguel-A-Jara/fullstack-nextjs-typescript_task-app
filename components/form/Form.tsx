@@ -27,7 +27,7 @@ const Form = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { register, handleSubmit, watch, formState: { errors, isValid }, setError, setValue } = useForm<IFormFields>({
+  const { register, handleSubmit, watch, formState: { errors, isValid }, setError, setValue, trigger } = useForm<IFormFields>({
     resolver: yupResolver(schema),
     mode: 'onChange',
     reValidateMode: 'onChange'
@@ -93,8 +93,9 @@ const Form = () => {
       />
 
       <FormImageInput 
-        setValue={ setValue }
+        trigger={ trigger }
         watchValue={ watch }
+        setValue={ setValue }
         errors={errors.image}
         register={register('image')}
       />
@@ -103,7 +104,7 @@ const Form = () => {
         { isSubmitting &&  <LoadingCircle size={40} /> }
 
         {/* Returns true if the form is valid and is not submitting */}
-        <FormSubmitButton isValid={ isValid && !isSubmitting} />
+        <FormSubmitButton isValid={ isValid  } />
       </div>
 
     </form>
