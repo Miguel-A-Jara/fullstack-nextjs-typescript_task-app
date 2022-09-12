@@ -6,6 +6,7 @@
 .img-item {
   grid-column: 1;
   grid-row: 1 / span 2;
+  align-items: center;
 }
 
 @media screen and (min-width: 768px) {

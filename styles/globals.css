@@ -32,8 +32,8 @@
   
 .img-wrapper > span {
   box-shadow:
-    3px 3px 3px hsl(220deg 0% 0% / 0.3) !important;
-  border-radius: 0.25em
+    3px 3px 5px hsl(220deg 0% 0% / 0.4);
+  border-radius: 0.25em;
 }
 
 .app-shadow {

@@ -65,6 +65,8 @@ const TodoPage: NextPageWithLayout = () => {
       
       <ImageContainer fetchedTodo={fetchedTodo} todoState={todoState} />
 
+      <hr className='d-lg-none my-4'/>
+
       {
         todoState && (
           <>
@@ -81,18 +83,20 @@ const TodoPage: NextPageWithLayout = () => {
             <div className={`${styles['title-item']}`}>
               <EditableInput 
                 name='title'
+                errors={errors.title}
+                style='fs-1 mb-1'
                 text={todoState.title} 
                 setTodoState={setTodoState} 
-                errors={errors.title}
                 register={register('title')}
               />
             </div>
             <div className={`${styles['description-item']}`}>
               <EditableInput 
                 name='description'
-                setTodoState={setTodoState} 
-                text={todoState.description} 
                 errors={errors.description}
+                setTodoState={setTodoState} 
+                style='fs-3'
+                text={todoState.description} 
                 register={register('description')}
               />
             </div>

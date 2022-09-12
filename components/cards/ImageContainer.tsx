@@ -34,11 +34,11 @@ const ImageContainer = ({ todoState, fetchedTodo }: IImageContainerProps) => {
     <div className={`${styles['img-item']} img-wrapper d-flex justify-content-center px-3`}>
     { image && (
       <Image
+        width={400}
         src={ image }
         layout='intrinsic'
-        width={400}
-        height={400 / ratio}
         objectFit='contain'
+        height={400 / ratio}
         alt={ todoState?.title }
         onLoadingComplete={({ naturalWidth, naturalHeight }) => setRatio(naturalWidth / naturalHeight)}
       />

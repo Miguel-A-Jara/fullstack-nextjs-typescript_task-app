@@ -36,6 +36,7 @@ const resizeTextArea = (e: ChangeEvent<HTMLTextAreaElement> | RefObject<HTMLText
     textArea.style.height = `${e.current!.scrollHeight}px`;
     return;
   }
+
   e.target.style.height = `inherit`;
   e.target.style.height = `${e.target.scrollHeight}px`;
 };
@@ -49,10 +50,19 @@ const EditableInput = ({ style, text, setTodoState, name, register, errors }: IE
   useEffect(() => {
 
     resizeTextArea(myElement);
-    window.addEventListener('resize', () => resizeTextArea(myElement));
+
+    window.addEventListener('resize', function(){
+      setTimeout(() => {
+        resizeTextArea(myElement);
+      }, 300);
+    });
     
     return () => {
-      window.addEventListener('resize', () => resizeTextArea(myElement));
+      window.addEventListener('resize', function(){
+        setTimeout(() => {
+          resizeTextArea(myElement);
+        }, 300);
+      });
     };
 
   }, [myElement]);
@@ -68,20 +78,24 @@ const EditableInput = ({ style, text, setTodoState, name, register, errors }: IE
       <textarea
         rows={1}
         value={textValue}
+        placeholder={ `${name.slice(0, 1).toUpperCase()}${name.slice(1, name.length)}` } //Making it uppercase
         onFocus={resizeTextArea}
         {...myRegister}
 
-        ref={((el: HTMLTextAreaElement) => myElement) && myRegister.ref}
+        ref={((el: HTMLTextAreaElement) => {
+          myElement.current = el; 
+          myRegister.ref(el)
+        })}
 
         onChange={(e) => {
           myRegister.onChange(e);
           handleChange(e);
         }}
         
-        className={`${styles['text-area']} ${style} w-100 py-1 text-center border-0 mt-1 mb-3`}
+        className={`${styles['text-area']} ${style} w-100 ps-2 border-0`}
       >
       </textarea>
-      <ErrorMessage customStyle='text-center d-block' errors={errors} />
+      <ErrorMessage customStyle='text-center d-block mb-4' errors={errors} />
     </>
   )
 }
