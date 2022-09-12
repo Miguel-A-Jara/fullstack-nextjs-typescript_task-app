@@ -54,7 +54,7 @@ const FormImageInput = ({ errors, register, watchValue, setValue, trigger }: IFo
               layout='fixed'
               alt='Not found'
               className='rounded'
-              height={400 / ratio}
+              height={Math.trunc(400 / ratio)}
               src={URL.createObjectURL(selectedImage)}
               onLoadingComplete={({ naturalWidth, naturalHeight }) => setRatio(naturalWidth / naturalHeight)}
             />
