@@ -82,7 +82,7 @@ const TodoPage: NextPageWithLayout = () => {
       
       <ImageContainer fetchedTodo={fetchedTodo} todoState={todoState} />
 
-      <hr className='d-lg-none my-4'/>
+      <hr className='d-md-none my-4'/>
 
       {
         todoState && (
@@ -118,7 +118,7 @@ const TodoPage: NextPageWithLayout = () => {
               />
             </div>
             <div className={`${ styles['priority-toggle-container-item'] } row align-items-center m-0 p-0 mb-5`}>
-              <div className='col-12 col-md-11'>
+              <div className='col-12 col-md-10'>
                 <PriorityInput
                   name='priority'
                   control={control}
@@ -127,7 +127,7 @@ const TodoPage: NextPageWithLayout = () => {
                   completed={todoState.completed}
                 />
               </div>
-              <div className='col-12 col-md-1 d-flex justify-content-center justify-content-md-end align-items-center'>
+              <div className='col-12 col-md-2 d-flex justify-content-center align-items-center'>
                 <TodoCardCompletedToggle 
                   id={todoState._id}
                   setTodoState={setTodoState}

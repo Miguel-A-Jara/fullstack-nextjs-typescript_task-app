@@ -33,7 +33,7 @@ const ImageContainer = ({ todoState, fetchedTodo }: IImageContainerProps) => {
 
   return (
     <div
-      className={`${styles['img-item']} img-wrapper d-flex align-items-center justify-content-center px-3`}
+      className={`${styles['img-item']} img-wrapper d-flex align-items-center justify-content-center px-3 mb-md-3`}
     >
       {image ? (
         <Image

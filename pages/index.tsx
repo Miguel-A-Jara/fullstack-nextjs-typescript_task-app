@@ -5,10 +5,10 @@ import { NextPageWithLayout } from './_app';
 import TodoCard               from '../components/cards/TodoCard';
 import MainLayout             from '../components/layout/MainLayout';
 
-import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
 import getTodosThunk from '../redux/slices/getTodosThunk';
-import LoadingScreen from '../components/loading/LoadingScreen';
 import EmptyCardList from '../components/cards/EmptyCardList';
+import LoadingScreen from '../components/loading/LoadingScreen';
+import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
 
 const Home: NextPageWithLayout = () => {
 
@@ -17,8 +17,8 @@ const Home: NextPageWithLayout = () => {
 
   useEffect(() => {
 
-    if ( todos.length < 1 )
-      dispatch( getTodosThunk() );
+    if ( todos.length < 1 ) dispatch( getTodosThunk() ); 
+    //We only fetch the todos when the array of todos is empty.
     
   }, [dispatch]);
 
@@ -28,6 +28,7 @@ const Home: NextPageWithLayout = () => {
         <title>Task Manager - Main</title>
       </Head>
       <section>
+        
         <div className='row justify-content-around'>
 
         { isLoading && <LoadingScreen /> }

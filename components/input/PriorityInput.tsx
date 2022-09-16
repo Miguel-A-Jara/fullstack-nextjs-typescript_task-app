@@ -25,8 +25,8 @@ const PriorityInput = ({ name, setTodoState, myValue, completed, control }: IPri
 
   return (
     <>
-      <div className={`${completed && styles.completed}`}>
-        <h4 className='d-none d-lg-block mb-5 text-center text-lg-start'>
+      <div className={`${completed && styles.completed} mb-5 mb-md-0`}>
+        <h4 className='d-lg-block fw-bold display-6 pt-3 text-start text-center'>
           Priority: {priorityState + 1}
         </h4>
         <div className={`${styles['priority-wrapper']} py-5 rounded-lg`}>
