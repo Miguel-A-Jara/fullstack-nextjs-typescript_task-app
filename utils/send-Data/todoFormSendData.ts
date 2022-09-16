@@ -7,7 +7,7 @@ const fullImgURL = `${BASE_URL}todos/image/`;
 const todoFormSendData = async (data: IFormFields) => {
 
   //We get the image form the form Data
-  const imageData: File = data.image[0];
+  const imageData: File = data.image![0];
   let imageBody = new FormData();
 
   //We remove the image from the 'text' fields
