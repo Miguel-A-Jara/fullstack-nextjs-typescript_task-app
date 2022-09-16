@@ -4,6 +4,7 @@ import Skeleton from 'react-loading-skeleton';
 
 import { ITodo } from '../../interfaces/Todos/ITodo';
 import styles    from '../../styles/task/grid-task.module.css';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 interface IImageContainerProps {
   todoState  : ITodo | null;
@@ -12,14 +13,14 @@ interface IImageContainerProps {
 
 const ImageContainer = ({ todoState, fetchedTodo }: IImageContainerProps) => {
 
-  const [ratio, setRatio] = useState( 16 / 9 );
+  const [ratio, setRatio] = useState( 4 / 3 );
   const [image, setImage] = useState<string | null>(null);
 
   useEffect(() => {
 
     if ( !fetchedTodo ) return;
 
-    const getTodoImg = `http://localhost:3500/todos/image/${fetchedTodo?._id}`
+    const getTodoImg = `${process.env.NEXT_PUBLIC_BASE_URL}todos/image/${fetchedTodo?._id}`
 
     fetch(getTodoImg)
       .then(data => data.blob())
@@ -47,10 +48,12 @@ const ImageContainer = ({ todoState, fetchedTodo }: IImageContainerProps) => {
         />
       ) : (
         <Skeleton
-          width={270}
-          height={270 / ratio}
-          enableAnimation={false}
-          className='d-block bg-primary mx-auto app-shadow-close'
+          width={250}
+          height={250 / ratio}
+          baseColor='#11111a'
+          highlightColor='#191933'
+          enableAnimation={true}
+          className='mx-auto lh-lg'
         />
       )}
     </div>

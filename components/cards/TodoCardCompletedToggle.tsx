@@ -30,8 +30,6 @@ const TodoCardCompletedToggle = ({ isCompleted, setTodoState, id }: ITodoCardCom
     updateTodo(id, { completed: !isCompleted })
       .then((data: ITodo) => {
 
-        console.log(data);
-
         dispatch(updateTodoRedux({ _id: id, paramName: 'completed', paramValue: data.completed }));
         
         setIsToggleOn(data.completed);

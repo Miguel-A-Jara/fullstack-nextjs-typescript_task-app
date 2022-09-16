@@ -4,27 +4,6 @@
   --background: #111;
 }
 
-/* ========== Colors ==========  */
-.one {
-  color: limegreen;
-}
-
-.two {
-  color: lightgreen;
-}
-
-.three {
-  color: cornflowerblue;
-}
-
-.four {
-  color: crimson;
-}
-
-.five {
-  color: red;
-}
-
 .app-shadow-close {
   box-shadow:
     3px 3px 3px hsl(220deg 0% 0% / 0.3) !important;
@@ -43,13 +22,13 @@
     3px 6px 6px hsl(220deg 0% 0% / 0.333);
 }
 
-.blur {
+/* .blur {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.5);
   filter: blur(10px);
   inset: 0;
   z-index: -1;
-}
+} */
 
 .tooltip {
   max-width: 200px;
@@ -70,18 +49,18 @@
 }
 
 /* ========== Media Queries ==========  */
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
 
-  body {
-    color: white;
-    background: linear-gradient(135deg, #99c1ff, #8d64ff, #545cff);
-    min-height: 100vh;
-    position: relative;
-  }
+html {
+  color-scheme: dark;
 }
+
+body {
+  color: white;
+  background: linear-gradient(135deg, #99c1ff, #8d64ff, #545cff);
+  height: 100vh;
+  position: relative;
+}
+
 
 @media screen and (min-width: 992px) {
   .text-lg-start {
