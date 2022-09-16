@@ -1,20 +1,22 @@
 import { Dispatch, SetStateAction, useState } from 'react';
-import styles      from '../../styles/Input/PriorityInput.module.css';
+import { Controller } from 'react-hook-form';
 import ReactSlider from 'react-slider';
+import styles      from '../../styles/Input/PriorityInput.module.css';
 
 import { ITodo }    from '../../interfaces/Todos/ITodo';
 import ReactTooltip from 'react-tooltip';
 
 interface IPriorityInputProps {
-  name:         keyof ITodo;
-  value:        number;
-  completed:    boolean;
+  name        : keyof ITodo;
+  control     : any;
+  myValue     : number;
+  completed   : boolean;
   setTodoState: Dispatch<SetStateAction<ITodo | null>>;
 }
 
-const PriorityInput = ({ name, setTodoState, value, completed }: IPriorityInputProps) => {
+const PriorityInput = ({ name, setTodoState, myValue, completed, control }: IPriorityInputProps) => {
 
-  const [priorityState, setPriorityState] = useState(value - 1);
+  const [priorityState, setPriorityState] = useState(myValue - 1);
 
   const handleChange = (e: number) => {
     setPriorityState(e);
@@ -28,25 +30,37 @@ const PriorityInput = ({ name, setTodoState, value, completed }: IPriorityInputP
           Priority: {priorityState + 1}
         </h4>
         <div className={`${styles['priority-wrapper']} py-5 rounded-lg`}>
-          <ReactSlider
-            min={0}
-            max={4}
-            value={value - 1}
-            className={styles['priority-track']}
-            thumbClassName={styles['priority-thumb']}
-            onChange={handleChange}
-            renderThumb={(props, state) => (
-              <div
-                {...props}
-              >
-                <h3
-                  className='h4 fw-bold'
-                  data-tip={ priorityState + 1 }
-                  data-for={ name }
-                >
-                  { state.value + 1 }
-                </h3>
-              </div>
+          <Controller 
+            name={name}
+            control={control}
+            defaultValue={myValue}
+            render={({ field: { value, onChange } }) => (  
+              <ReactSlider
+                min={0}
+                max={4}
+                value={value - 1}
+                className={styles['priority-track']}
+                thumbClassName={styles['priority-thumb']}
+                
+                onChange={(e) => {
+                  handleChange(e);
+                  onChange(e + 1);
+                }}
+
+                renderThumb={(props, state) => (
+                  <div
+                    {...props}
+                  >
+                    <h3
+                      className='h4 fw-bold'
+                      data-tip={ priorityState + 1 }
+                      data-for={ name }
+                    >
+                      { state.value + 1 }
+                    </h3>
+                  </div>
+                )}
+              />
             )}
           />
         </div>

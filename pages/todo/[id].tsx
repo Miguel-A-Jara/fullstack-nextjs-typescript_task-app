@@ -14,21 +14,28 @@ import styles         from '../../styles/task/grid-task.module.css';
 import ImageContainer from '../../components/cards/ImageContainer';
 import TodoCardCompletedToggle from '../../components/cards/TodoCardCompletedToggle';
 
-import { schema } from '../../components/form/Form';
-import IFormFields from '../../components/form/IFormFields';
+import updateTodo       from '../../utils/update-data/updateTodo';
+import IUpdateTodo      from '../../interfaces/Todos/IUpdateTodo';
+import todoCardSchema   from '../../components/cards/todoCardSchema';
+import orderUpdateData  from '../../utils/update-data/orderUpdateData';
 import FormSubmitButton from '../../components/form/FormSubmitButton';
+
+import { useAppDispatch } from '../../utils/hooks/reduxHooks';
+import { updateTodo as updateTodoRedux } from '../../redux/slices/todoSlice';
 
 const TodoPage: NextPageWithLayout = () => {
 
   const router = useRouter();
   const { id } = router.query;
 
+  const dispatch = useAppDispatch();
+
   const [isTodoChanged, setIsTodoChanged] = useState(false);
   const [todoState, setTodoState] = useState<ITodo | null>(null);
   const [fetchedTodo, setFetchedTodo] = useState<ITodo | null>(null);
 
-  const { register, handleSubmit, formState: { errors, isValid }, setError, setValue } = useForm<IFormFields>({
-    resolver: yupResolver(schema),
+  const { register, handleSubmit, formState: { errors, isValid }, setError, setValue, control } = useForm<IUpdateTodo>({
+    resolver: yupResolver(todoCardSchema()),
     mode: 'onChange',
     reValidateMode: 'onChange'
   });
@@ -54,8 +61,18 @@ const TodoPage: NextPageWithLayout = () => {
 
   }, [fetchedTodo, todoState]);
 
-  const submitForm = (data: IFormFields) => {
-    alert('Hey!')
+  const submitForm = (data: IUpdateTodo) => {
+    
+    if ( !fetchedTodo ) return;
+    
+    const parsedTodo = orderUpdateData(data, fetchedTodo);
+    updateTodo(fetchedTodo._id, parsedTodo)
+      .then((data: ITodo) => {
+        setFetchedTodo(data);
+        for (const field in parsedTodo) {
+          dispatch(updateTodoRedux({ _id: data._id, paramName: (field as keyof ITodo), paramValue: parsedTodo[field] }));
+        }
+      })
   };
 
   return (
@@ -104,9 +121,10 @@ const TodoPage: NextPageWithLayout = () => {
               <div className='col-12 col-md-11'>
                 <PriorityInput
                   name='priority'
-                  completed={todoState.completed}
+                  control={control}
+                  myValue={todoState.priority} 
                   setTodoState={setTodoState} 
-                  value={todoState.priority} 
+                  completed={todoState.completed}
                 />
               </div>
               <div className='col-12 col-md-1 d-flex justify-content-center justify-content-md-end align-items-center'>
@@ -122,7 +140,7 @@ const TodoPage: NextPageWithLayout = () => {
         )
       }
       <div className={`${styles['button-item']} d-flex justify-content-center justify-content-md-end align-items-center`}>
-        <FormSubmitButton text='Save Changes' isValid={ isTodoChanged } />
+        <FormSubmitButton text='Save Changes' isValid={ isTodoChanged && isValid } />
       </div>
     </form>
   )

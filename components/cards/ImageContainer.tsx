@@ -43,11 +43,7 @@ const ImageContainer = ({ todoState, fetchedTodo }: IImageContainerProps) => {
           objectFit='contain'
           height={Math.trunc(400 / ratio)}
           alt={todoState?.title}
-          onLoadingComplete={({ naturalWidth, naturalHeight }) =>{
-              setRatio(naturalWidth / naturalHeight);
-              console.log(400 / ratio);
-            }
-          }
+          onLoadingComplete={({ naturalWidth, naturalHeight }) => setRatio(naturalWidth / naturalHeight)}
         />
       ) : (
         <Skeleton

@@ -13,6 +13,8 @@ const updateTodo = async (id: string, body: IUpdateTodo) => {
 
   const respData = await resp.json();
 
+  delete respData.__v;
+
   return respData;
 };
 

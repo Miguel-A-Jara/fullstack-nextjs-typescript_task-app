@@ -1,8 +1,9 @@
-import { ITodo } from '../../interfaces/Todos/ITodo';
+import { ITodo }   from '../../interfaces/Todos/ITodo';
+import IUpdateTodo from '../../interfaces/Todos/IUpdateTodo';
 
-const orderUpdateData = ( todoState: ITodo, fetchedTodo: ITodo ) => {
+const orderUpdateData = ( todoState: IUpdateTodo, fetchedTodo: ITodo ) => {
   
-  const todoBody: Partial<ITodo> = {};
+  const todoBody: Partial<IUpdateTodo> = {};
 
   if (todoState.title !== fetchedTodo.title) {
     todoBody.title = todoState.title;
@@ -15,9 +16,6 @@ const orderUpdateData = ( todoState: ITodo, fetchedTodo: ITodo ) => {
   }
   if (todoState.priority !== fetchedTodo.priority) {
     todoBody.priority = todoState.priority;
-  }
-  if (todoState.completed !== fetchedTodo.completed) {
-    todoBody.completed = todoState.completed;
   }
 
   return todoBody;

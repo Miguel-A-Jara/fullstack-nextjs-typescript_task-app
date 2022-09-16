@@ -56,6 +56,8 @@ const todoSlice = createSlice({
     },
     updateTodo: (state, action: PayloadAction<{ _id: string, paramName: keyof ITodo, paramValue: unknown }>) => {
 
+      console.log('Hello')
+
       const updatedTodo = updateTodoHelper( state, action );
 
       if ( !updatedTodo ) return state;
