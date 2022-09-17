@@ -13,7 +13,7 @@ import FormTextInput      from './FormTextInput';
 import FormNumberInput    from './FormNumberInput';
 import FormSubmitButton   from './FormSubmitButton';
 import { useAppDispatch } from '../../utils/hooks/reduxHooks';
-import { addTodo }        from '../../redux/slices/todoSlice';
+import { addTodo, updateFilterParams }        from '../../redux/slices/todoSlice';
 import LoadingCircle      from '../loading/LoadingCircle';
 import FormImageInput     from './FormImageInput';
 import { ITodo }          from '../../interfaces/Todos/ITodo';
@@ -46,6 +46,7 @@ const Form = () => {
           const todo: ITodo = {...respData, ...respImag};
 
           dispatch(addTodo(todo));
+          dispatch(updateFilterParams(null)); //We reset the filter params
           router.push(`/todo/${respData._id}`);
         }
 

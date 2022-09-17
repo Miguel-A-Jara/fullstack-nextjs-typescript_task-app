@@ -1,6 +1,7 @@
-import { WritableDraft } from 'immer/dist/internal';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import updateTodoHelper from '../helpers/todoSliceHelpers/updateTodo';
+
+import { WritableDraft } from 'immer/dist/internal';
+import updateTodoHelper  from '../helpers/todoSliceHelpers/updateTodo';
 import { ITodo } from './../../interfaces/Todos/ITodo';
 
 type FilterParamsType = { param: keyof ITodo, value: string | number | boolean };
@@ -38,8 +39,8 @@ const todoSlice = createSlice({
   reducers: {
     addTodo: (state, action: PayloadAction<ITodo>) => {
 
-      state.todos = [...state.todos, action.payload];
-      state.todosCopy = state.todos;
+      state.todosCopy = [...state.todosCopy, action.payload];
+      state.todos = state.todosCopy;
 
     },
     startLoadingTodos: (state) => {
