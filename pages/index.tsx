@@ -4,10 +4,10 @@ import Head from 'next/head'
 import { NextPageWithLayout } from './_app';
 import TodoCard               from '../components/cards/TodoCard';
 import MainLayout             from '../components/layout/MainLayout';
+import EmptyCardList          from '../components/cards/EmptyCardList';
+import LoadingScreen          from '../components/loading/LoadingScreen';
 
 import getTodosThunk from '../redux/slices/getTodosThunk';
-import EmptyCardList from '../components/cards/EmptyCardList';
-import LoadingScreen from '../components/loading/LoadingScreen';
 import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
 
 const Home: NextPageWithLayout = () => {
@@ -17,8 +17,8 @@ const Home: NextPageWithLayout = () => {
 
   useEffect(() => {
 
-    if ( todos.length < 1 ) dispatch( getTodosThunk() ); 
     //We only fetch the todos when the array of todos is empty.
+    if ( todos.length < 1 ) dispatch( getTodosThunk() ); 
     
   }, [dispatch]);
 

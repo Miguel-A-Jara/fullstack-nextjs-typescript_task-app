@@ -1,24 +1,32 @@
+/* ===== React & Next Imports ===== */
 import { useState }  from 'react';
 import { useRouter } from 'next/router';
 
+
+/* ===== Libraries Imports ===== */
 import { useForm }     from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
+
+/* ===== Interfaces Imports ===== */
 import IFormFields        from './IFormFields';
-import todoFormSendData   from '../../utils/send-Data/todoFormSendData';
+
+
+/* ===== Utility Functions ===== */
+import todoFormSchema     from './todoFormSchema';
+import { useAppDispatch } from '../../utils/hooks/reduxHooks';
+import submitAddTodoForm  from '../../utils/submitAddTodoForm';
+
+
+/* ===== Components Imports ===== */
+import FormTextInput      from './FormTextInput';
+import FormImageInput     from './FormImageInput';
+import FormSubmitButton   from './FormSubmitButton';
+import LoadingCircle      from '../loading/LoadingCircle';
+
 import styles             from '../../styles/Form/form.module.css';
 
-import todoFormSchema     from './todoFormSchema';
-import FormTextInput      from './FormTextInput';
-import FormNumberInput    from './FormNumberInput';
-import FormSubmitButton   from './FormSubmitButton';
-import { useAppDispatch } from '../../utils/hooks/reduxHooks';
-import { addTodo, updateFilterParams }        from '../../redux/slices/todoSlice';
-import LoadingCircle      from '../loading/LoadingCircle';
-import FormImageInput     from './FormImageInput';
-import { ITodo }          from '../../interfaces/Todos/ITodo';
-
-export const schema = todoFormSchema();
+const schema = todoFormSchema();
 
 const Form = () => {
 
@@ -33,40 +41,13 @@ const Form = () => {
     reValidateMode: 'onChange'
   });
 
-  const submitForm = async (data: IFormFields) => {
-
-    try {
-
-      setIsSubmitting(true);
-      todoFormSendData(data).then((resp) => {
-        const { respData, respImag } = resp;
-        if ( respData._id && respImag.name ) {
-          //If we received an ID and a name then it means the TODO was created
-          
-          const todo: ITodo = {...respData, ...respImag};
-
-          dispatch(addTodo(todo));
-          dispatch(updateFilterParams(null)); //We reset the filter params
-          router.push(`/todo/${respData._id}`);
-        }
-
-        if (respData.statusCode === 400) {
-          setError('title', { type: 'custom', message: respData.message });
-          setIsSubmitting(false);
-        }
-      });
-
-    } catch (error) {
-      setIsSubmitting(false);
-      console.log(error);
-    }
-  };
-
   return (
 
     <form
-      className={`${ styles.form } app-shadow p-3 p-lg-5 row rounded-lg justify-content-center justify-content-lg-start align-items-start`} 
-      onSubmit={handleSubmit(submitForm)}
+      className={
+        `${ styles.form } app-shadow p-3 p-lg-5 row rounded-lg justify-content-center justify-content-lg-start align-items-start`
+      } 
+      onSubmit={handleSubmit(data => submitAddTodoForm(data, setIsSubmitting, router, dispatch, setError))}
     >
       <FormTextInput
         text='Author'
@@ -75,28 +56,28 @@ const Form = () => {
         register={register('author')}
       />
       <FormTextInput
-        icon='bi-textarea-t'
         text='Title'
-        register={register('title')}
+        icon='bi-textarea-t'
         errors={errors.title}
+        register={register('title')}
       />
       <FormTextInput
-        icon='bi-file-earmark-text-fill'
         text='Description'
-        register={register('description')}
         errors={errors.description}
+        icon='bi-file-earmark-text-fill'
+        register={register('description')}
       />
-      <FormNumberInput
-        icon='bi-alarm-fill'
+      <FormTextInput
+        type='number'
         text='Priority'
-        register={register('priority')}
+        icon='bi-alarm-fill'
         errors={errors.priority}
+        register={register('priority')}
       />
-
       <FormImageInput 
-        trigger={ trigger }
-        watchValue={ watch }
-        setValue={ setValue }
+        trigger ={trigger}
+        watchValue={watch}
+        setValue={setValue}
         errors={errors.image}
         register={register('image')}
       />

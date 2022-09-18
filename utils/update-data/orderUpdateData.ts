@@ -1,22 +1,17 @@
 import { ITodo }   from '../../interfaces/Todos/ITodo';
 import IUpdateTodo from '../../interfaces/Todos/IUpdateTodo';
 
+/* This function parses the todo, to ONLY update the values that have changed. */
+
 const orderUpdateData = ( todoState: IUpdateTodo, fetchedTodo: ITodo ) => {
-  
+
   const todoBody: Partial<IUpdateTodo> = {};
 
-  if (todoState.title !== fetchedTodo.title) {
-    todoBody.title = todoState.title;
-  }
-  if (todoState.author !== fetchedTodo.author) {
-    todoBody.author = todoState.author;
-  }
-  if (todoState.description !== fetchedTodo.description) {
-    todoBody.description = todoState.description;
-  }
-  if (todoState.priority !== fetchedTodo.priority) {
-    todoBody.priority = todoState.priority;
-  }
+  for (const parameter in todoState) {
+    if ( todoState[parameter] !== fetchedTodo[parameter] ) {
+      todoBody[parameter] = todoState[parameter];
+    };
+  };
 
   return todoBody;
 };

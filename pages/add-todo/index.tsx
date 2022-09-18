@@ -1,10 +1,10 @@
 import { ReactElement } from 'react'
 import Head from 'next/head'
 
-import Form from '../../components/form/Form'
-import MainLayout       from '../../components/layout/MainLayout'
-
+import Form                   from '../../components/form/Form'
+import MainLayout             from '../../components/layout/MainLayout'
 import { NextPageWithLayout } from '../_app'
+
 
 const index: NextPageWithLayout = () => {
   return (

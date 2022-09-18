@@ -1,10 +1,11 @@
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
+
 import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 import { ITodo } from '../../interfaces/Todos/ITodo';
 import styles    from '../../styles/task/grid-task.module.css';
-import 'react-loading-skeleton/dist/skeleton.css'
 
 interface IImageContainerProps {
   todoState  : ITodo | null;

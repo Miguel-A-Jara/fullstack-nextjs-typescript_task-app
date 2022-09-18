@@ -27,5 +27,6 @@
   - **Typescript**
   - **MongoDB**
   - **Docker**
+  - _**Mongoose**_
   - _**Multer - file storage ( images )**_
   
