@@ -4,11 +4,11 @@
 
 ### This Task Manager App was made with Next JS, using some React JS features like Redux Toolkit, Custom Hooks, Fetch APIs (connected to my own Nest JS API) and both Synchronous and Asynchronous logic.
 
-#
 
-## You can check the project by clicking [**here**](https://fullstack-nextjs-typescript.vercel.app/)
 
-#
+# You can check the project by clicking [**here**](https://fullstack-nextjs-typescript.vercel.app/)
+
+
 
 ## **List of Technologies used for the project:**
 
