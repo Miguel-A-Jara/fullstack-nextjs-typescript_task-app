@@ -19,6 +19,7 @@ import fetchTodos         from '../../utils/fetch-data/fetchTodos';
 import submitIdForm       from '../../utils/submitIdForm';
 import getIsTodoChanged   from '../../utils/getIsTodoChanged';
 import { useAppDispatch } from '../../utils/hooks/reduxHooks';
+import useAuth            from '../../hooks/useAuth';
 
 
 /* ===== Components Imports ===== */
@@ -40,6 +41,7 @@ const TodoPage: NextPageWithLayout = () => {
   const { id } = router.query;
 
   const dispatch = useAppDispatch();
+  const { isAuthenticated, user } = useAuth();
 
   const [todoState, setTodoState]         = useState<ITodo | null>(null);
   const [fetchedTodo, setFetchedTodo]     = useState<ITodo | null>(null);
@@ -54,6 +56,10 @@ const TodoPage: NextPageWithLayout = () => {
   useEffect(() => {
 
     if ( todoState || !id ) return;
+
+    if (!isAuthenticated) {
+      router.push('/login');
+    }
 
     const getTodoURL = `todos/${id}`;
 

@@ -1,6 +1,8 @@
 interface UnregisteredFields {
-  email   : string;
-  password: string;
+  username      : string;
+  email         : string;
+  password      : string;
+  repeatPassword: string;
 }
 
 export default UnregisteredFields;

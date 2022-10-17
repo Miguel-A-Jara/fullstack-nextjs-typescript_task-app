@@ -16,7 +16,7 @@ import unregisteredSchema from '../../components/unregistered/unregisteredSchema
 import unregisteredSubmit from '../../utils/unregisteredSubmit';
 import Link from 'next/link';
 
-const schema = unregisteredSchema();
+const schema = unregisteredSchema('login');
 
 const Unregistered: NextPageWithLayout = () => {
 

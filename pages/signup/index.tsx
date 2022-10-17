@@ -16,7 +16,7 @@ import LoadingCircle      from '../../components/loading/LoadingCircle';
 import unregisteredSchema from '../../components/unregistered/unregisteredSchema';
 import unregisteredSubmit from '../../utils/unregisteredSubmit';
 
-const schema = unregisteredSchema();
+const schema = unregisteredSchema('signup');
 
 const Unregistered: NextPageWithLayout = () => {
 
@@ -31,7 +31,7 @@ const Unregistered: NextPageWithLayout = () => {
 
   return (
     <form
-      className={`${styles['login-form']} row p-2 py-4 p-lg-5 rounded-lg justify-content-center`}
+      className={`${styles['login-form']} row p-2 py-4 p-lg-5 rounded-lg justify-content-start`}
       onSubmit={handleSubmit((data) =>
         unregisteredSubmit(data, setIsSubmiting, router, setError)
       )}
@@ -39,6 +39,14 @@ const Unregistered: NextPageWithLayout = () => {
       <h1 className='text-center fw-bold my-3 display-3 text-secondary'>
         SignUp
       </h1>
+
+      <FormTextInput
+        type='text'
+        text='Username'
+        icon='bi-person'
+        errors={errors.username}
+        register={register('username')}
+      />
 
       <FormTextInput
         type='text'
@@ -56,18 +64,24 @@ const Unregistered: NextPageWithLayout = () => {
         register={register('password')}
       />
 
+      <FormTextInput
+        type='password'
+        text='Repeat Password'
+        icon='bi-asterisk'
+        errors={errors.repeatPassword}
+        register={register('repeatPassword')}
+      />
+
       <div className='col-12 d-flex flex-lg-row align-items-end gap-3 mt-3 justify-content-between px-4'>
-        
         <Link href='login'>
           <a className='text-secondary fw-bold fs-4'>SignUp</a>
         </Link>
-        
+
         {isSubmiting && <LoadingCircle size={40} />}
 
         {/* Returns true if the form is valid and is not submitting */}
         <FormSubmitButton text='Create Account' isValid={isValid} />
       </div>
-
     </form>
   );
 }
