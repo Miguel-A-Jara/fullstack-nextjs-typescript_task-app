@@ -1,27 +1,25 @@
 import { ReactElement, useState } from 'react';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
+import { useRouter }                from 'next/router';
+import Link from 'next/link';
+
+import { yupResolver }     from '@hookform/resolvers/yup';
+import { useForm }         from 'react-hook-form';
 
 import { NextPageWithLayout } from '../_app'
 import UnregisteredLayout from '../../components/layout/UnregisteredLayout';
 
 import styles from '../../styles/Unregistered/unregistered.module.css';
-import UnregisteredFields from '../../interfaces/Unregistered/UnregisteredFields';
 
 import FormTextInput      from '../../components/form/FormTextInput';
 import FormSubmitButton   from '../../components/form/FormSubmitButton';
 import LoadingCircle      from '../../components/loading/LoadingCircle';
 import unregisteredSchema from '../../components/unregistered/unregisteredSchema';
-import unregisteredSubmit from '../../utils/unregisteredSubmit';
-import Link from 'next/link';
+import useRegister        from '../../utils/hooks/useRegister';
+import UnregisteredFields from '../../interfaces/Unregistered/UnregisteredFields';
 
 const schema = unregisteredSchema('login');
 
 const Unregistered: NextPageWithLayout = () => {
-
-  const [isSubmiting, setIsSubmiting] = useState(false);
-  const router = useRouter();
 
   const { register, handleSubmit, formState: { errors, isValid }, setError } = useForm<UnregisteredFields>({
     resolver: yupResolver(schema),
@@ -29,12 +27,17 @@ const Unregistered: NextPageWithLayout = () => {
     reValidateMode: 'onChange'
   });
 
+  const { setLoginData, isLoading } = useRegister(setError);
+  const router = useRouter(); 
+
+  const unregisteredSubmit = ( data: UnregisteredFields ) => {
+    setLoginData(data);
+  };
+
   return (
     <form
       className={`${styles['login-form']} row p-2 py-4 p-lg-5 rounded-lg justify-content-center`}
-      onSubmit={handleSubmit((data) =>
-        unregisteredSubmit(data, setIsSubmiting, router, setError)
-      )}
+      onSubmit={handleSubmit(unregisteredSubmit)}
     >
       <h1 className='text-center fw-bold my-3 display-3 text-secondary'>
         Login
@@ -56,13 +59,13 @@ const Unregistered: NextPageWithLayout = () => {
         register={register('password')}
       />
 
-      <div className='col-12 d-flex flex-lg-row align-items-end gap-3 mt-3 justify-content-between px-4'>
+      <div className='col-12 d-flex flex-lg-row align-items-center align-items-lg-end gap-3 mt-3 justify-content-between px-4'>
         
         <Link href='signup'>
-          <a className='text-secondary fw-bold fs-4'>SignUp</a>
+          <a className='text-secondary fw-bold fs-4'>Signup</a>
         </Link>
         
-        {isSubmiting && <LoadingCircle size={40} />}
+        {isLoading && <LoadingCircle size={40} />}
 
         {/* Returns true if the form is valid and is not submitting */}
         <FormSubmitButton text='Login' isValid={isValid} />

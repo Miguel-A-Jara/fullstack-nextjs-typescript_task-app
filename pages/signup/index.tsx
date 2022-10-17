@@ -31,7 +31,7 @@ const Unregistered: NextPageWithLayout = () => {
 
   return (
     <form
-      className={`${styles['login-form']} row p-2 py-4 p-lg-5 rounded-lg justify-content-start`}
+      className={`${styles['login-form']} row p-2 py-4 p-lg-5 rounded-lg justify-content-center`}
       onSubmit={handleSubmit((data) =>
         unregisteredSubmit(data, setIsSubmiting, router, setError)
       )}
@@ -72,9 +72,9 @@ const Unregistered: NextPageWithLayout = () => {
         register={register('repeatPassword')}
       />
 
-      <div className='col-12 d-flex flex-lg-row align-items-end gap-3 mt-3 justify-content-between px-4'>
+      <div className='col-12 d-flex flex-lg-row align-items-center align-items-lg-end gap-3 mt-3 justify-content-between px-4'>
         <Link href='login'>
-          <a className='text-secondary fw-bold fs-4'>SignUp</a>
+          <a className='text-secondary fw-bold fs-4'>Login</a>
         </Link>
 
         {isSubmiting && <LoadingCircle size={40} />}
