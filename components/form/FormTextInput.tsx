@@ -10,7 +10,7 @@ interface IFormTextInputProps {
   errors  : any; //We use 'any' as we don't get much benefits from strong-typing it.
   text    : string;
   icon    : string;
-  type   ?: 'text' | 'number';
+  type   ?: 'text' | 'number' | 'password';
   register: UseFormRegisterReturn;
 }
 
@@ -24,18 +24,18 @@ const FormTextInput = ({ text, register, errors, icon, type = 'text' }: IFormTex
 
   return (
     <>
-      <div className='col-12 col-lg-6 row align-items-start mb-3'>
+      <div className='col-12 col-lg-6 row align-items-start justify-content-start mb-3'>
         <label
           htmlFor ={ text }
           data-tip={ text }
           data-for={ text }
-          className={`${ styles.label } d-flex align-items-center justify-content-lg-end col-12 col-lg-2 fs-4`}
+          className={`${ styles.label } d-flex align-items-center justify-content-lg-center col-12 col-lg-1 fs-4`}
         >
           <i className={`bi ${icon} me-3 me-lg-0 fs-3`}/>
           <small className='d-lg-none'>{ text }</small>
         </label>
       
-        <div className='col-12 col-lg-10 p-0'>
+        <div className='col-12 col-lg-11 p-0'>
           <input
             id={ text }
             type={type}

@@ -49,6 +49,10 @@ body {
   animation: tooltipAnimation 5s ease-in-out infinite;
 }
 
+.full-height {
+  min-height: 100vh;
+}
+
 .tooltip::before {
   border-top-color: #00C895 !important;
 }

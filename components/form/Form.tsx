@@ -85,7 +85,6 @@ const Form = () => {
       <div className='col-12 d-flex flex-lg-row align-items-center gap-3 mt-3 justify-content-end pe-lg-5'>
         { isSubmitting &&  <LoadingCircle size={40} /> }
 
-        {/* Returns true if the form is valid and is not submitting */}
         <FormSubmitButton isValid={ isValid  } />
       </div>
 

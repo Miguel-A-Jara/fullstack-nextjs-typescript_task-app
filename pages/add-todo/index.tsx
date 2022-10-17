@@ -1,12 +1,26 @@
-import { ReactElement } from 'react'
+import { ReactElement, useEffect } from 'react'
 import Head from 'next/head'
 
+import useAuth from '../../hooks/useAuth'
 import Form                   from '../../components/form/Form'
 import MainLayout             from '../../components/layout/MainLayout'
 import { NextPageWithLayout } from '../_app'
+import { useRouter } from 'next/router'
 
 
-const index: NextPageWithLayout = () => {
+const AddTodo: NextPageWithLayout = () => {
+
+  const router = useRouter();
+  const { isAuthenticated, user } = useAuth();
+
+  useEffect(() => {
+    
+    if(!isAuthenticated) {
+      router.push('/login');
+    }
+
+  }, [isAuthenticated, router]);
+
   return (
     <>
     <Head>
@@ -19,11 +33,11 @@ const index: NextPageWithLayout = () => {
   )
 }
 
-index.getLayout = function (page: ReactElement) {
+AddTodo.getLayout = function (page: ReactElement) {
   return (
     <MainLayout>
       { page }
     </MainLayout>
   )
 }
-export default index
+export default AddTodo

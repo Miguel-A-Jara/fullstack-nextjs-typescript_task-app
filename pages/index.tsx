@@ -9,13 +9,21 @@ import LoadingScreen          from '../components/loading/LoadingScreen';
 
 import getTodosThunk from '../redux/slices/getTodosThunk';
 import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
+import useAuth from '../hooks/useAuth';
+import { useRouter } from 'next/router';
 
 const Home: NextPageWithLayout = () => {
 
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const { isLoading, todos } = useAppSelector((state) => state.todos);
+  const { isAuthenticated, user } = useAuth();
 
   useEffect(() => {
+
+    if (!isAuthenticated) {
+      router.push('/login');
+    }
 
     //We only fetch the todos when the array of todos is empty.
     if ( todos.length < 1 ) dispatch( getTodosThunk() ); 
