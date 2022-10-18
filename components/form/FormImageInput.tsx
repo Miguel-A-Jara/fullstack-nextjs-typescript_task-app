@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image';
 
 import { UseFormRegisterReturn, UseFormSetValue, UseFormTrigger, UseFormWatch } from 'react-hook-form';
@@ -26,7 +26,7 @@ const FormImageInput = ({ errors, register, watchValue, setValue, trigger }: IFo
   };
 
   const [selectedImage, setSelectedImage] = useState<File | null | undefined>(undefined);
-  const [ratio, setRatio] = useState(16/9);
+  const ratioImg = useRef(16/9);
 
   const imageVal = watchValue('image', null);
 
@@ -54,9 +54,9 @@ const FormImageInput = ({ errors, register, watchValue, setValue, trigger }: IFo
               layout='fixed'
               alt='Not found'
               className='rounded'
-              height={Math.trunc(400 / ratio)}
+              height={Math.trunc(400 / ratioImg.current)}
               src={URL.createObjectURL(selectedImage)}
-              onLoadingComplete={({ naturalWidth, naturalHeight }) => setRatio(naturalWidth / naturalHeight)}
+              onLoadingComplete={({ naturalWidth, naturalHeight }) => ratioImg.current = (naturalWidth / naturalHeight)}
             />
           ) : (
             <Skeleton

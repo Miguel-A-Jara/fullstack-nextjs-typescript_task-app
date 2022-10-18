@@ -16,19 +16,22 @@ const Home: NextPageWithLayout = () => {
 
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const { isAuthenticated } = useAuth();
+
+  const token = useAppSelector((state) => state.auth.token);
   const { isLoading, todos } = useAppSelector((state) => state.todos);
-  const { isAuthenticated, user } = useAuth();
 
   useEffect(() => {
 
-    if (!isAuthenticated) {
+    if (!isAuthenticated || !token) {
       router.push('/login');
+      return;
     }
 
     //We only fetch the todos when the array of todos is empty.
-    if ( todos.length < 1 ) dispatch( getTodosThunk() ); 
+    if ( todos.length < 1 ) dispatch( getTodosThunk(token) ); 
     
-  }, [dispatch]);
+  }, []);
 
   return (
     <>

@@ -17,7 +17,7 @@ const DropDownFilter = ({ fieldToFilter, placeholderText }: IDropDownFilterProps
 
   const dispatch = useAppDispatch();
   const { todosCopy, filterParams } = useAppSelector((state) => state.todos);
-  
+
   const valuesArray = todosCopy.map((todo) => todo[fieldToFilter]); //We make an array of values
   const uniqueValues = valuesArray.filter((x, i, t) => t.indexOf(x) == i) //We get the unique values
   

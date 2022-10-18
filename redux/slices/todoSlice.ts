@@ -71,6 +71,10 @@ const todoSlice = createSlice({
       state.todosCopy = state.todos;
 
     },
+    deleteAllTodos: (state) => {
+      state.todos = [];
+      state.todosCopy = [];
+    },
     filterTodos: (state) => {
 
       const areFilterParams = state.filterParams.every(param => param.value === 'All');
@@ -134,6 +138,7 @@ export const {
   updateTodo,
   deleteTodo,
   filterTodos,
+  deleteAllTodos,
   updateFilterParams
 } = todoSlice.actions;
 export default todoSlice.reducer;

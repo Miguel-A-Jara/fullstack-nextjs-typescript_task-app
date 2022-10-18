@@ -18,7 +18,7 @@ import IUpdateTodo    from '../../interfaces/Todos/IUpdateTodo';
 import fetchTodos         from '../../utils/fetch-data/fetchTodos';
 import submitIdForm       from '../../utils/submitIdForm';
 import getIsTodoChanged   from '../../utils/getIsTodoChanged';
-import { useAppDispatch } from '../../utils/hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks/reduxHooks';
 import useAuth            from '../../hooks/useAuth';
 
 
@@ -41,6 +41,7 @@ const TodoPage: NextPageWithLayout = () => {
   const { id } = router.query;
 
   const dispatch = useAppDispatch();
+  const token = useAppSelector(state => state.auth.token);
   const { isAuthenticated, user } = useAuth();
 
   const [todoState, setTodoState]         = useState<ITodo | null>(null);
@@ -57,13 +58,13 @@ const TodoPage: NextPageWithLayout = () => {
 
     if ( todoState || !id ) return;
 
-    if (!isAuthenticated) {
+    if (!isAuthenticated || !token) {
       router.push('/login');
     }
 
     const getTodoURL = `todos/${id}`;
 
-    fetchTodos<ITodo>(getTodoURL)
+    fetchTodos<ITodo>(getTodoURL, token!)
       .then((data: ITodo) => {
         setFetchedTodo(data);
         setTodoState(data);
@@ -85,23 +86,20 @@ const TodoPage: NextPageWithLayout = () => {
       </Head>
 
       <form
-        onSubmit={handleSubmit((data) => submitIdForm(data, fetchedTodo, dispatch, setFetchedTodo))}
+        onSubmit={handleSubmit((data) => submitIdForm(data, fetchedTodo, dispatch, setFetchedTodo, token!))}
         className={`${styles['grid-container']} rounded-lg my-lg-3 py-5 row`}
       >
-        <ImageContainer fetchedTodo={fetchedTodo} todoState={todoState} />
+        <ImageContainer token={token!} fetchedTodo={fetchedTodo} todoState={todoState} />
         <hr className='d-md-none my-4'/>
         {
           todoState && (
             <>
               <div className={`${styles['author-item']}`}>
-                <EditableInput
-                  name='author'
-                  errors={errors.author}
-                  text={todoState.author}
-                  style='display-3 fw-bold'
-                  setTodoState={setTodoState}
-                  register={register('author')}
-                />
+                <h2 
+                  className={`${styles['text-area']} display-3 fw-bold w-100 p-2 border-0`}
+                >
+                  {todoState.author}
+                </h2>
               </div>
               <div className={`${styles['title-item']}`}>
                 <EditableInput

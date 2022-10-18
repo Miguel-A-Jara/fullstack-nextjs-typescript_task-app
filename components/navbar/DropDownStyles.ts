@@ -17,7 +17,7 @@ const DropDownStyles: StylesConfig = {
   }),
   valueContainer: (provided, state) => ({
     ...provided,
-    minWidth: '150px',
+    minWidth: '125px',
   }),
   input: (provided, state) => ({
     ...provided,

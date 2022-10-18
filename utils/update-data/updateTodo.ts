@@ -1,13 +1,17 @@
 import IUpdateTodo from "../../interfaces/Todos/IUpdateTodo";
 
-const updateTodo = async (id: string, body: IUpdateTodo) => {
+const updateTodo = async (id: string, body: IUpdateTodo, token: string) => {
   
   const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
   const fullURL = `${BASE_URL}todos/${id}`;
 
   const resp = await fetch(fullURL, {
     method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+
+    },
     body: JSON.stringify(body),
   });
 

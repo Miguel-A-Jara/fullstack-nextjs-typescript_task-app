@@ -4,7 +4,7 @@ const BASE_URL   = process.env.NEXT_PUBLIC_BASE_URL;
 const fullTxtURL = `${BASE_URL}todos/`;
 const fullImgURL = `${BASE_URL}todos/image/`;
 
-const todoFormSendData = async (data: IFormFields) => {
+const todoFormSendData = async (data: IFormFields, token: string) => {
 
   //We get the image form the form Data
   const imageData: File = data.image![0];
@@ -17,7 +17,11 @@ const todoFormSendData = async (data: IFormFields) => {
   //Text fields
   const txtResp = await fetch(fullTxtURL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+
+    },
     body: JSON.stringify(dataNoImage),
   });
 
@@ -28,6 +32,9 @@ const todoFormSendData = async (data: IFormFields) => {
   imageBody.append('file', imageData);
   const imgResp = await fetch(fullImgURL, {
     method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    },
     body: imageBody
   });
 

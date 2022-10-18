@@ -10,9 +10,10 @@ import styles    from '../../styles/task/grid-task.module.css';
 interface IImageContainerProps {
   todoState  : ITodo | null;
   fetchedTodo: ITodo | null;
+  token      : string;
 };
 
-const ImageContainer = ({ todoState, fetchedTodo }: IImageContainerProps) => {
+const ImageContainer = ({ todoState, fetchedTodo, token }: IImageContainerProps) => {
 
   const [ratio, setRatio] = useState( 4 / 3 );
   const [image, setImage] = useState<string | null>(null);
@@ -23,7 +24,7 @@ const ImageContainer = ({ todoState, fetchedTodo }: IImageContainerProps) => {
 
     const getTodoImg = `${process.env.NEXT_PUBLIC_BASE_URL}todos/image/${fetchedTodo?._id}`
 
-    fetch(getTodoImg)
+    fetch(getTodoImg, { headers: { 'Authorization': `Bearer ${token}` } })
       .then(data => data.blob())
       .then(resp => {
         const imag = URL.createObjectURL(resp);

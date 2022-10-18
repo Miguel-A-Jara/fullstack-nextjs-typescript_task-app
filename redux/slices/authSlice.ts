@@ -1,9 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+type User = {
+  email   : string;
+  password: string;
+  username: string;
+}
+
 export type AuthTypes = {
-  user : string | null;
+  user : User | null;
   token: string | null;
 };
+
+type AuthPayload = {
+  type   : string;
+  payload: AuthTypes;
+}
 
 const initialState: AuthTypes = {
   user : null,
@@ -14,14 +25,28 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: initialState,
   reducers: {
-    authUser: (state, action) => {
-      console.log(state)
+    authenticateUser: (state, action: AuthPayload) => {
+
+      if(!action.payload.token || !action.payload.user) return;
+
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+
+      localStorage.setItem('user', JSON.stringify(action.payload.user));
+      localStorage.setItem('token', action.payload.token);
+    },
+
+    removeAuthentication: (state) => {
+
+      state.user = null;
+      state.token = null;
     }
   }
 });
 
 export const {
-  authUser
+  authenticateUser,
+  removeAuthentication
 } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -19,7 +19,7 @@ const AddTodo: NextPageWithLayout = () => {
       router.push('/login');
     }
 
-  }, [isAuthenticated, router]);
+  }, [router]);
 
   return (
     <>

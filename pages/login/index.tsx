@@ -1,10 +1,11 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { useRouter }                from 'next/router';
 import Link from 'next/link';
 
 import { yupResolver }     from '@hookform/resolvers/yup';
 import { useForm }         from 'react-hook-form';
 
+import useAuth from '../../hooks/useAuth';
 import { NextPageWithLayout } from '../_app'
 import UnregisteredLayout from '../../components/layout/UnregisteredLayout';
 
@@ -27,8 +28,14 @@ const Unregistered: NextPageWithLayout = () => {
     reValidateMode: 'onChange'
   });
 
-  const { setLoginData, isLoading } = useRegister(setError);
+  const { isAuthenticated, user } = useAuth();
   const router = useRouter(); 
+  const { setLoginData, isLoading } = useRegister(setError, '/login');
+
+  useEffect(() => {
+    if(isAuthenticated)
+      router.push('/');
+  }, []);
 
   const unregisteredSubmit = ( data: UnregisteredFields ) => {
     setLoginData(data);

@@ -1,5 +1,5 @@
 /* ===== React & Next Imports ===== */
-import { useState }  from 'react';
+import { useEffect, useState }  from 'react';
 import { useRouter } from 'next/router';
 
 
@@ -14,7 +14,7 @@ import IFormFields        from './IFormFields';
 
 /* ===== Utility Functions ===== */
 import todoFormSchema     from './todoFormSchema';
-import { useAppDispatch } from '../../utils/hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks/reduxHooks';
 import submitAddTodoForm  from '../../utils/submitAddTodoForm';
 
 
@@ -32,6 +32,11 @@ const Form = () => {
 
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const { token, user } = useAppSelector(state => state.auth);
+
+  useEffect(() => {
+    if(!token) router.push('/login');
+  }, []);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -45,16 +50,18 @@ const Form = () => {
 
     <form
       className={
-        `${ styles.form } app-shadow p-3 p-lg-5 row rounded-lg justify-content-center justify-content-lg-start align-items-start`
+        `${ styles.form } app-shadow p-3 p-lg-5 row rounded-lg justify-content-center align-items-start`
       } 
-      onSubmit={handleSubmit(data => submitAddTodoForm(data, setIsSubmitting, router, dispatch, setError))}
+      onSubmit={handleSubmit(data => 
+        submitAddTodoForm({...data, author: user!.username}, setIsSubmitting, router, dispatch, setError, token!))
+      }
     >
-      <FormTextInput
+      {/* <FormTextInput
         text='Author'
         icon='bi-person-fill'
         errors={errors.author}
         register={register('author')}
-      />
+      /> */}
       <FormTextInput
         text='Title'
         icon='bi-textarea-t'

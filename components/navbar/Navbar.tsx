@@ -1,11 +1,13 @@
 import { MouseEvent } from 'react';
+import { useRouter } from 'next/router';
 import styles         from '../../styles/navbar.module.css';
 
+import NavbarLinkItem from './NavbarLinkItem';
 import DropDownFilter     from './DropDownFilter'
 import NavbarToggleButton from './NavbarToggleButton';
 import { useAppDispatch } from '../../utils/hooks/reduxHooks';
-import { filterTodos, updateFilterParams } from '../../redux/slices/todoSlice';
-import NavbarLinkItem from './NavbarLinkItem';
+import { removeAuthentication } from '../../redux/slices/authSlice';
+import { deleteAllTodos, filterTodos, updateFilterParams } from '../../redux/slices/todoSlice';
 
 interface INavbarProps {
   refHeight: any;
@@ -14,10 +16,22 @@ interface INavbarProps {
 const Navbar = ({ refHeight }: INavbarProps) => {
 
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     dispatch(updateFilterParams(null));
     dispatch(filterTodos());
+  };
+  
+  const handleClickLogOut = () => {
+
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+
+    dispatch(removeAuthentication());
+    dispatch(deleteAllTodos());
+
+    router.push('/login');
   };
 
   return (
@@ -68,7 +82,20 @@ const Navbar = ({ refHeight }: INavbarProps) => {
                   }
                 >
                 <i className='bi bi-x-circle-fill me-2'/>
-                  Clear all filters
+                  No filters
+                </button>
+              </li>
+
+              <li className='nav-item'>
+                <button 
+                  onClick={handleClickLogOut}
+                  className={
+                    `btn w-100 btn-primary d-flex justify-content-center 
+                    justify-content-lg-start align-items-center ${styles.button} bg-danger text-white px-2`
+                  }
+                >
+                <i className='bi bi-x-circle-fill me-2'/>
+                  Logout
                 </button>
               </li>
             </ul>

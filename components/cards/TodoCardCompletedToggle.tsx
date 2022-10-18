@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 import card from '../../styles/Card/card.module.css';
 
@@ -17,17 +18,22 @@ interface ITodoCardCompletedToggle {
 const TodoCardCompletedToggle = ({ isCompleted, setTodoState, id }: ITodoCardCompletedToggle) => {
 
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const token = useAppSelector(state => state.auth.token);
   const [isToggleOn, setIsToggleOn] = useState(isCompleted);
   const [isUpdating, setIsUpdating] = useState(false);
+
+  useEffect(() => {
+    if(!token) router.push('/login');
+  }, []);
 
   const toggleTodo = () => {
 
     if ( isUpdating ) return;
-    
 
     setIsUpdating(true);
 
-    updateTodo(id, { completed: !isCompleted })
+    updateTodo(id, { completed: !isCompleted }, token!)
       .then((data: ITodo) => {
 
         dispatch(updateTodoRedux({ _id: id, paramName: 'completed', paramValue: data.completed }));

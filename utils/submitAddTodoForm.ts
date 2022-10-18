@@ -18,13 +18,14 @@ const submitAddTodoForm = async (
   router         : TRouter, 
   dispatch       : TDispatch, 
   setError       : TSetError,
+  token          : string
 ) => {
 
   try {
 
     setIsSubmitting(true);
 
-    const resp = await todoFormSendData(data);
+    const resp = await todoFormSendData(data, token);
     const { respData, respImag } = resp;
 
     if ( respData._id && respImag.name ) {

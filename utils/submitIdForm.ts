@@ -14,14 +14,16 @@ const submitIdForm = async (
   data          : IUpdateTodo, 
   fetchedTodo   : TFetchedTodo, 
   dispatch      : TDispatch, 
-  setFetchedTodo: TSetFetchedTodo
+  setFetchedTodo: TSetFetchedTodo,
+  token         : string
 ) => {
     
   if ( !fetchedTodo ) return;
   
   const parsedTodo = orderUpdateData(data, fetchedTodo); //Before updating the Todo, we must parse it.
 
-  const resp: ITodo = await updateTodo(fetchedTodo._id, parsedTodo); //The response is the updated Todo.
+  console.log(fetchedTodo)
+  const resp: ITodo = await updateTodo(fetchedTodo._id, parsedTodo, token); //The response is the updated Todo.
 
   setFetchedTodo(resp); //We update our local Fetched Todo.
 

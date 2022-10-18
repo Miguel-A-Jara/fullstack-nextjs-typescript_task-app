@@ -1,4 +1,5 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
+
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
@@ -14,26 +15,43 @@ import FormTextInput      from '../../components/form/FormTextInput';
 import FormSubmitButton   from '../../components/form/FormSubmitButton';
 import LoadingCircle      from '../../components/loading/LoadingCircle';
 import unregisteredSchema from '../../components/unregistered/unregisteredSchema';
-import unregisteredSubmit from '../../utils/unregisteredSubmit';
+
+import useAuth from '../../hooks/useAuth';
+import useRegister from '../../utils/hooks/useRegister';
 
 const schema = unregisteredSchema('signup');
 
 const Unregistered: NextPageWithLayout = () => {
-
-  const [isSubmiting, setIsSubmiting] = useState(false);
-  const router = useRouter();
 
   const { register, handleSubmit, formState: { errors, isValid }, setError } = useForm<UnregisteredFields>({
     resolver: yupResolver(schema),
     mode: 'onChange',
     reValidateMode: 'onChange'
   });
+  
+  const router = useRouter();
+  const { isAuthenticated } = useAuth();
+  const { isLoading, setLoginData } = useRegister(setError, '/signup');
+  
+  const unregisteredSubmit = (data: UnregisteredFields) => {
+
+    const parsedData: Partial<UnregisteredFields> = data;
+    delete parsedData.repeatPassword;
+
+
+    setLoginData((parsedData as UnregisteredFields)); //casting it to UnregisteredFields
+  };
+
+  useEffect(() => {
+    if(isAuthenticated)
+      router.push('/');
+  }, []);
 
   return (
     <form
       className={`${styles['login-form']} row p-2 py-4 p-lg-5 rounded-lg justify-content-center`}
       onSubmit={handleSubmit((data) =>
-        unregisteredSubmit(data, setIsSubmiting, router, setError)
+        unregisteredSubmit(data)
       )}
     >
       <h1 className='text-center fw-bold my-3 display-3 text-secondary'>
@@ -77,7 +95,7 @@ const Unregistered: NextPageWithLayout = () => {
           <a className='text-secondary fw-bold fs-4'>Login</a>
         </Link>
 
-        {isSubmiting && <LoadingCircle size={40} />}
+        { isLoading && <LoadingCircle size={40} /> }
 
         {/* Returns true if the form is valid and is not submitting */}
         <FormSubmitButton text='Create Account' isValid={isValid} />

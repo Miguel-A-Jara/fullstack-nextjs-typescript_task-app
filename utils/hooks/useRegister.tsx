@@ -1,17 +1,23 @@
 import { useEffect, useState } from 'react';
-import { UseFormSetError } from 'react-hook-form';
-import UnregisteredFields from '../../interfaces/Unregistered/UnregisteredFields';
+import { useRouter }           from 'next/router';
+import { UseFormSetError }     from 'react-hook-form';
+
+import { useAppDispatch }   from './reduxHooks';
+import { authenticateUser } from '../../redux/slices/authSlice';
+import UnregisteredFields   from '../../interfaces/Unregistered/UnregisteredFields';
 
 const BASE_URL   = process.env.NEXT_PUBLIC_BASE_URL;
-const fullTxtURL = `${BASE_URL}users/login`;
 
 type SetErrorTypes= UseFormSetError<UnregisteredFields>;
 
-const useRegister = (setError: SetErrorTypes) => {
+const useRegister = (setError: SetErrorTypes, link: string) => {
 
-  const [loginData, setLoginData] = useState<UnregisteredFields | null>(null);
-  const [response, setResponse] = useState(null);
+  const dispatch = useAppDispatch();
+
+  const router = useRouter();
+
   const [isLoading, setIsLoading] = useState(false);
+  const [loginData, setLoginData] = useState<UnregisteredFields | null>(null);
 
   useEffect(() => {
 
@@ -23,7 +29,7 @@ const useRegister = (setError: SetErrorTypes) => {
 
       try {
 
-        const resp = await fetch(fullTxtURL, {
+        const resp = await fetch(`${BASE_URL}users${link}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(loginData),
@@ -39,18 +45,21 @@ const useRegister = (setError: SetErrorTypes) => {
 
         if (resp.ok) {
           setIsLoading(false);
-          console.log(json)
+          console.log(json);
+          dispatch(authenticateUser(json));
+          router.push('/');
         }
 
       } catch (error) {
         setIsLoading(false);
+        console.log(error);
       }
 
     };
 
     fetchData();
 
-  }, [loginData, setError]);
+  }, [loginData]);
 
   return { setLoginData, isLoading };
 

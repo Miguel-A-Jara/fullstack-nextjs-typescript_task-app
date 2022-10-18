@@ -1,4 +1,7 @@
-import { useAppDispatch } from '../../utils/hooks/reduxHooks';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+
+import { useAppDispatch, useAppSelector } from '../../utils/hooks/reduxHooks';
 import { deleteTodo as deleteTodoRedux } from '../../redux/slices/todoSlice';
 
 import style from '../../styles/Card/card.module.css';
@@ -10,10 +13,17 @@ interface ITodoCardDeleteButtonProps {
 
 const TodoCardDeleteButton = ({ id }: ITodoCardDeleteButtonProps) => {
 
+  const router = useRouter();
   const dispatch = useAppDispatch();
+  const token = useAppSelector(state => state.auth.token);
+
+  useEffect(() => {
+    if ( !token ) 
+      router.push('/login');
+  }, []);
 
   const handleDelete = () => {
-    deleteTodo(id);
+    deleteTodo(id, token!);
     
     dispatch(deleteTodoRedux(id))
   };
