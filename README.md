@@ -8,7 +8,7 @@ This Task Manager App was made with Next JS, using some React JS features like R
 
 ## **List of Technologies used for the project:**
 
-- ### Frontend:
+### Frontend:
   - **Next JS**
   - **TypeScript**
   - **Bootstrap (V5)**
@@ -17,8 +17,8 @@ This Task Manager App was made with Next JS, using some React JS features like R
   - _**React Select**_
   - _**React Skeleton**_
   - _**React Tooltip**_
-
-- ### Backend: 
+  
+ ### Backend: 
   - **Nest JS**
   - **Typescript**
   - **MongoDB**
